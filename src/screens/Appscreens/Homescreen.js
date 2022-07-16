@@ -1,19 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, Button, View } from 'react-native'
+import React, { Component, useState, useEffect } from 'react'
 
-export default function Homescreen() {
-    const [name, setname] = useState(second)
-    React.useEffect(() => {
-        if (!route.params?.status) {
-            setTimeout(() => {
-                Animated.timing(animation, {
-                    toValue: 100,
-                    duration: 2000,
-                    useNativeDriver: true
-                }).start(() => {
-                    setanimation(100);
-                });
-            }, 1000);
+export default function Homescreen({ route, navigation }) {
+    /* 2. Get the param */
+    const { EmailId, otherParam } = route.params;
+    const [EmailIds, setEmailIds] = useState('1234@gmail.com')
+    useEffect(() => {
+        if (route.params?.EmailId) {
+            setEmailIds(EmailId)
+            // console.log(EmailId);
+            // console.log(EmailIds);
         }
     }, []);
     return (
@@ -24,10 +20,21 @@ export default function Homescreen() {
                 justifyContent: 'center',
                 paddingHorizontal: 40,
             }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-                Welcome {userDetails?.fullname}
+            <Text
+                style={{
+                    fontSize: 20,
+                    fontWeight: '400',
+                    fontFamily: 'Comfortaa',
+                    color: '#000'
+                }}>
+                EmailId:{EmailIds}
             </Text>
-            <Button title="Logout" onPress={logout} />
+            <Button title="Logout"
+                onPress={() =>
+                    navigation.navigate('Onboardingscreen', {
+                        status: 'back',
+                    })}
+            />
         </View>
     )
 }

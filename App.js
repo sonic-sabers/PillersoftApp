@@ -5,8 +5,9 @@ import { View, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 // import StackN from './src/navigator/Navigation';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Splashscreen, Onboardingscreen, Loginscreen, Signupscreen } from './src/screens';
+import { Splashscreen,Homescreen, Onboardingscreen, Loginscreen, Signupscreen } from './src/screens';
 import { Provider as PaperProvider } from 'react-native-paper';
+
 const Stack = createStackNavigator();
 const screenOptionStyle = {
   headerShown: false,
@@ -45,7 +46,7 @@ export default function App() {
           <Stack.Screen name="Loginscreen" component={Loginscreen} />
           <Stack.Screen name="Signupscreen" component={Signupscreen} />
           <Stack.Screen name="Splashscreen" component={Splashscreen} />
-          {/* <Stack.Screen name="Onboardingscreen" component={Onboardingscreen} /> */}
+          <Stack.Screen name="Homescreen" component={Homescreen} />
           {/* <Stack.Screen name="Onboardingscreen" component={Onboardingscreen} /> */}
         </Stack.Navigator>
       </NavigationContainer>

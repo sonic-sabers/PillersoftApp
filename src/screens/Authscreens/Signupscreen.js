@@ -203,8 +203,10 @@ export default function Signupscreen({ navigation }) {
         console.log(userData);
         // userData.token = userData.access_token;
       }
-      console.log('user', userData);
-      alert('Succesfully Logged In!!!');
+      // console.log('user', userData);
+      navigation.replace('Homescreen', {
+        EmailId: EmailId,
+      });
       // navigation.navigate('Appscreen');
     } else {
       setError(response.message);

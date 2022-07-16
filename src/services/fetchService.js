@@ -27,7 +27,7 @@ var fetchService = {
             const resData = await response.text();
             //   console.log('res', resData);
             if (!resData.success) {
-                alert(resData.message);
+                // alert(resData.message);
             }
             if (!resData.success) {
                 const message = resData.msg;
@@ -88,7 +88,7 @@ var fetchService = {
             });
             const resData = await response.json();
             if (!resData.success) {
-                alert(resData.message);
+                // alert(resData.message);
             }
             if (!resData.success) {
                 const message = resData.msg;

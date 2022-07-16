@@ -104,8 +104,8 @@ const Styledtextinput = (props) => {
 
 
 export default function Loginscreen() {
-  const [EmailId, setEmailId] = useState('');
-  const [PWord, setPWord] = useState('')
+  // const [EmailId, setEmailId] = useState('');
+  const [Error, setError] = useState('')
   const navigation = useNavigation();
   const [Loading, setLoading] = React.useState("");
   const [hidePass, setHidePass] = React.useState(true);
@@ -121,23 +121,21 @@ export default function Loginscreen() {
       .min(8, 'Password is too short!')
       .required('Password is required!'),
   });
-  const handlesLogin = async () => {
+  const handlesLogin = async (values) => {
     setLoading(true);
-    const response = await fetchService.login(EmailId, PWord, FCMToken);
+    const response = await fetchService.login(values.EmailId, values.PWord, FCMToken);
     setLoading(false);
-    console.log(response);
     if (response.status) {
-      let userData = response.data ? response.data : {};
-      { }
-      console.log('user', userData);
-      navigation.navigate('Homescreen', {
-        EmailId: EmailId,
+      // let userData = response.data ? response.data : {};
+      // { }
+      // console.log('values3', values);
+      navigation.replace('Homescreen', {
+        EmailId:values.EmailId,
       });
     } else {
-      // setError(response.message);
-      console.log('Error', response.message);
+      setError(response.message);
+      // console.log('Error', response.message);
     }
-    console.log('response', response);
   };
 
   // const handleLogin = async () => {
@@ -200,12 +198,12 @@ export default function Loginscreen() {
             <Formik
               initialValues={UserInfo}
               onSubmit={(values, formikActions) => {
-                setTimeout(() => {
-                  console.log(values);
+                // setTimeout(() => {
+                  // console.log(values);
                   formikActions.resetForm();
                   formikActions.setSubmitting(false);
-                  handlesLogin();
-                }, 500);
+                  handlesLogin(values);
+                // }, 1);
               }}
               validationSchema={validationSchema}>
               {({
@@ -253,7 +251,7 @@ export default function Loginscreen() {
                         secureTextEntry={hidePass ? true : false}
                         style={{
                           width: '80%',
-                          marginLeft: 5,
+                          marginLeft: 10,
                           fontWeight: '400',
                           fontSize: 15,
                           marginBottom: -10,
