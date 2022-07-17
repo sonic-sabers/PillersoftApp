@@ -11,6 +11,7 @@ export default colors = {
     white2: '#F6F6F9',
     mytext: '#333',
     background:'#003049',
-    inputs:'#f1faee'
+    inputs:'#f1faee',
+    white3:'#ffffff80'
 
 }

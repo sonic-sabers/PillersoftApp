@@ -101,7 +101,7 @@ export default function Onboardingscreen({ route }) {
                                 fontFamily: 'Comfortaa',
                                 color: colors.primary
                             }}>
-                            Login In
+                            Log In
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity

@@ -31,11 +31,11 @@ import * as Yup from 'yup';
 const Styledtextinput = (props) => {
   const [text, onChangeText] = React.useState("");
   // https://godconnect.online/api/UserMgmtAPI/ProfileCheck
-
+  const [hidePass, setHidePass] = React.useState(true);
+  const navigation = useNavigation();
 
   return (
     <View>
-
       <Text
         style={{
           fontSize: 15,
@@ -56,7 +56,6 @@ const Styledtextinput = (props) => {
         alignItems: 'center',
         marginTop: -10,
       }}>
-
         {!props.MaterialCommunityIcons ? <FontAwesome name={props.icon} size={20} color={colors.inputs} style={{
           marginBottom: -10
         }} /> :
@@ -73,31 +72,59 @@ const Styledtextinput = (props) => {
             flex: 1,
           }}
           value={text}
+          secureTextEntry={hidePass ? true : false}
+
           placeholder={props.lable}
           placeholderTextColor={colors.inputs}
           autoCapitalize="none"
           {...props}
         />
+        {props.password &&
+          <FontAwesome5
+            name={hidePass ? 'eye-slash' : 'eye'}
+            size={20}
+            color="#caf0f8"
+            onPress={() => setHidePass(!hidePass)}
+          />}
       </View>
-      {props.error ? (
-        <Text
-          style={{
-            color: 'red',
-            fontSize: 13.5,
-            marginBottom: -10,
-            marginLeft: 11,
-          }}>
-          {props.error}
-        </Text>
-      ) : (
-        <Text
-          style={{
-            color: 'red',
-            fontSize: 13.5,
-            marginBottom: -10,
-            marginLeft: 11,
-          }}></Text>
-      )}
+      <Hstack between>
+        {props.error ? (
+          <Text
+            style={{
+              color: 'red',
+              fontSize: 13.5,
+              marginBottom: -10,
+              marginLeft: 11,
+            }}>
+            {props.error}
+          </Text>
+        ) : (
+          <Text
+            style={{
+              color: 'red',
+              fontSize: 13.5,
+              marginBottom: -10,
+              marginLeft: 11,
+            }}></Text>
+        )}
+        {props.password &&
+          <TouchableOpacity
+            onPress={() => Alert.alert('Navigating to Forget password screen')}
+          >
+            <Text
+              style={{
+                fontSize: 11,
+                fontWeight: '700',
+                fontFamily: 'Comfortaa',
+                color: colors.white,
+                marginTop: 5,
+              }}
+            >
+              Forget Password
+            </Text>
+          </TouchableOpacity>
+        }
+      </Hstack>
     </View>
   )
 }
@@ -114,61 +141,64 @@ export default function Loginscreen() {
     EmailId: '',
     PWord: '',
   };
+
+  // const hybridregex = /^\d{10}\t((?>[a-zA-Z\d!#$%&'*+\-\/=?^_`{|}~]+\x20*|""((?=[\x01-\x7f])[^""\\]|\\[\x01-\x7f])*""\x20*)*(?<angle><))?((?!\.)(?>\.?[a-zA-Z\d!#$%&'*+\-\/=?^_`{|}~]+)+|""((?=[\x01-\x7f])[^""\\]|\\[\x01-\x7f])*"")@(((?!-)[a-zA-Z\d\-]+(?<!-)\.)+[a-zA-Z]{2,}|\[(((?(?<!\[)\.)(25[0-5]|2[0-4]\d|[01]?\d?\d)){4}|[a-zA-Z\d\-]*[a-zA-Z\d]:((?=[\x01-\x7f])[^\\\[\]]|\\[\x01-\x7f])+)\])(?(angle)>))/
+  const regex = /^(?:\d{10}|\w+@\w+\.\w{2,3})$/
   const validationSchema = Yup.object({
-    EmailId: Yup.string().email('Invalid email!').required('Email is required!'),
+    EmailId:
+      Yup.string()
+        .trim()
+        .matches(regex, 'This field must be phone number or Email')
+        .required('Required!')
+        .min(6, 'Minimum 6 characters is required'),
+
+    // .email('Invalid email!')
+    // .required('Email is required!'), number is not valid')
+
+    // EmailId: Yup.string().when("isEmail", {
+    //   is: '1',
+    //   then: Yup.string()
+    //     .required("phonenumber cannot be empty")
+    //     .min(6, 'phonenumber must be at least 6 char')
+    //     .max(11, 'phonenumber has max 10 char'),
+    //   otherwise: Yup.string()
+    //     .email("Please enter valid email")
+    //     .required("email cannot be empty"),
+    // }),
     PWord: Yup.string()
       .trim()
       .min(8, 'Password is too short!')
       .required('Password is required!'),
   });
   const handlesLogin = async (values) => {
+    // console.log('values3', values)
     setLoading(true);
     const response = await fetchService.login(values.EmailId, values.PWord, FCMToken);
     setLoading(false);
+    // console.log(response);
     if (response.status) {
       // let userData = response.data ? response.data : {};
       // { }
       // console.log('values3', values);
       navigation.replace('Homescreen', {
-        EmailId:values.EmailId,
+        EmailId: values.EmailId,
       });
     } else {
       setError(response.message);
+      Alert.alert(response.msg)
       // console.log('Error', response.message);
     }
   };
 
-  // const handleLogin = async () => {
-  //   if (EmailId === '') {
-  //     Alert.alert('Error!', 'Please enter Email', [{ text: 'Okay' }]);
-  //     return;
-  //   }
-  //   if (PWord === '') {
-  //     Alert.alert('Error!', 'Please enter Password', [{ text: 'Okay' }]);
-  //     return;
-  //   }
-  //   setLoading(true);
-  //   const response = await fetchService.login(EmailId, PWord, FCMToken);
-  //   setLoading(false);
-  //   console.log(response);
-  //   if (response.status) {
-  //     let userData = response.data ? response.data : {};
-  //     { }
-  //     console.log('user', userData);
-  //     Alert.alert('Succesfully Logged In!!!');
-  //     // navigation.navigate('Appscreen');
-  //   } else {
-  //     setError(response.message);
-  //   }
-  // };
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
         <View
           style={{
-            backgroundColor: colors.background,
-            padding: 10,
+            backgroundColor: colors.primary,
+            padding: 15,
             flex: 1,
+            paddingRight: 20,
           }}>
           {Loading && <View
             style={[{
@@ -185,61 +215,102 @@ export default function Loginscreen() {
               marginBottom: -30
 
             }]} />}
-          <Octicons name='arrow-left'
-            onPress={() =>
-              navigation.navigate('Onboardingscreen', {
-                status: 'back',
-              })}
-            size={30} color={colors.white} />
+
           <View style={{
             flex: 1,
-            justifyContent: 'center'
+            justifyContent: 'space-between',
+            // backgroundColor: 'green',
+            paddingBottom: 10,
           }}>
-            <Formik
-              initialValues={UserInfo}
-              onSubmit={(values, formikActions) => {
-                // setTimeout(() => {
+            <View>
+              <TouchableOpacity 
+               onPress={() =>
+                navigation.navigate('Onboardingscreen', {
+                  status: 'back',
+                })}
+                style={{
+                backgroundColor: colors.white,
+                height: 36,
+                width: 36,
+                borderRadius: 60,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+                <Octicons name='arrow-left'
+                 
+                  size={27} color={colors.primary} />
+              </TouchableOpacity>
+              <Text
+                style={{
+                  fontSize: 40,
+                  fontWeight: '700',
+                  fontFamily: 'Comfortaa',
+                  color: colors.white,
+                  marginTop: 5,
+                }}
+              >
+                Hi There!
+              </Text>
+
+              <Text
+                style={{
+                  fontSize: 25,
+                  fontWeight: '600',
+                  fontFamily: 'Comfortaa',
+                  color: colors.white,
+                  marginTop: -5,
+                  marginBottom: 15
+                }}
+              >
+                Log In Here
+              </Text>
+            </View>
+            <View>
+              <Formik
+                initialValues={UserInfo}
+                onSubmit={(values, formikActions) => {
+                  // setTimeout(() => {
                   // console.log(values);
                   formikActions.resetForm();
                   formikActions.setSubmitting(false);
                   handlesLogin(values);
-                // }, 1);
-              }}
-              validationSchema={validationSchema}>
-              {({
-                values,
-                errors,
-                touched,
-                isSubmitting,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-              }) => {
-                {
-                }
-                const { EmailId, PWord } = values;
-                return (
-                  <>
-                    <Styledtextinput
-                      // onChangeText={setEmailId}
-                      value={EmailId}
-                      placeholder='Email'
-                      placeholderTextColor={colors.inputs}
-                      autoCapitalize="none"
-                      title='Enter your email'
-                      icon='email'
-                      keyboardType='email-address'
-                      MaterialCommunityIcons
-                      error={touched.EmailId && errors.EmailId}
-                      onChangeText={handleChange('EmailId')}
-                      onBlur={handleBlur('EmailId')}
-                    />
-                    <Hstack centered between styles={[{
-                    }]}>
+                  // }, 1);
+                }}
+                validationSchema={validationSchema}>
+                {({
+                  values,
+                  errors,
+                  touched,
+                  isSubmitting,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                }) => {
+                  {
+                  }
+                  const { EmailId, PWord } = values;
+                  return (
+                    <>
+                      <Styledtextinput
+                        // onChangeText={setEmailId}
+                        value={EmailId}
+                        placeholder='Email/Phone'
+                        placeholderTextColor={colors.inputs}
+                        autoCapitalize="none"
+                        title='Enter your Email/Phone'
+                        icon='email'
+                        keyboardType='email-address'
+                        MaterialCommunityIcons
+                        error={touched.EmailId && errors.EmailId}
+                        onChangeText={handleChange('EmailId')}
+                        onBlur={handleBlur('EmailId')}
+
+                      />
+                      {/* <Hstack centered between styles={[{}]}> */}
                       <Styledtextinput
                         // onChangeText={setPWord}
                         value={PWord}
-                        placeholder='Enter Password'
+                        placeholder='Password'
                         placeholderTextColor={colors.inputs}
                         autoCapitalize="none"
                         title='Enter your Password'
@@ -248,56 +319,112 @@ export default function Loginscreen() {
                         error={touched.PWord && errors.PWord}
                         onChangeText={handleChange('PWord')}
                         onBlur={handleBlur('PWord')}
-                        secureTextEntry={hidePass ? true : false}
-                        style={{
-                          width: '80%',
-                          marginLeft: 10,
-                          fontWeight: '400',
-                          fontSize: 15,
-                          marginBottom: -10,
-                          color: '#caf0f8',
+                        password
+                      // secureTextEntry={hidePass ? true : false}
+                      // style={{
+                      //   width: '80%',
+                      //   marginLeft: 10,
+                      //   fontWeight: '400',
+                      //   fontSize: 15,
+                      //   marginBottom: -10,
+                      //   color: '#caf0f8',
 
-                        }}
-                      />
-                      <FontAwesome5
-                        name={hidePass ? 'eye-slash' : 'eye'}
-                        size={20}
-                        color="#caf0f8"
-                        onPress={() => setHidePass(!hidePass)}
-                      />
-                    </Hstack>
-                    <TouchableOpacity
-                      // onPress={() => {
-                      //   Loading ? null :
-                      //     handleLogin()
                       // }}
-                      submitting={isSubmitting}
-                      onPress={handleSubmit}
-                      style={{
-                        backgroundColor: '#faedcd',
-                        padding: 15,
-                        borderRadius: 15,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        marginVertical: 20,
-                        height: 60
-                      }}>
-                      {Loading ?
-                        <ActivityIndicator />
-                        : <Text
-                          style={{
-                            fontSize: 20,
-                            fontWeight: '700',
-                            fontFamily: 'Comfortaa',
-                            color: '#ff5400'
-                          }}>
-                          Press to Login
-                        </Text>}
-                    </TouchableOpacity>
-                  </>
-                );
-              }}
-            </Formik>
+                      />
+                      {/* <FontAwesome5
+                          name={hidePass ? 'eye-slash' : 'eye'}
+                          size={20}
+                          color="#caf0f8"
+                          onPress={() => setHidePass(!hidePass)}
+                        /> */}
+                      {/* </Hstack> */}
+                      <TouchableOpacity
+                        // onPress={() => {
+                        //   Loading ? null :
+                        //     handleLogin()
+                        // }}
+                        submitting={isSubmitting}
+                        onPress={handleSubmit}
+                        style={{
+                          backgroundColor: '#FFFFFF',
+                          padding: 15,
+                          borderRadius: 15,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          // marginVertical: 20,
+                          marginTop: 20,
+                          height: 60,
+                        }}>
+                        {Loading ?
+                          <ActivityIndicator />
+                          : <Text
+                            style={{
+                              fontSize: 20,
+                              fontWeight: '700',
+                              fontFamily: 'Comfortaa',
+                              color: colors.primary
+                            }}>
+                            Log In
+                          </Text>}
+                      </TouchableOpacity>
+                    </>
+                  );
+                }}
+              </Formik>
+              <Hstack centered styles={{ marginVertical: 15, }}>
+                <View
+                  style={{
+                    height: 2,
+                    flex: 1,
+                    backgroundColor: colors.white3,
+                    borderRadius: 40
+                  }} />
+                <Text
+                  style={{
+                    fontSize: 17,
+                    fontWeight: '700',
+                    fontFamily: 'Comfortaa',
+                    color: colors.white3,
+                    marginHorizontal: 10,
+                    marginTop: -5,
+
+                  }}>
+                  or
+                </Text>
+                <View
+                  style={{
+                    height: 2,
+                    flex: 1,
+                    borderRadius: 40,
+                    backgroundColor: colors.white3
+                  }} />
+              </Hstack>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('Signupscreen')
+                }}
+                style={{
+                  backgroundColor: colors.primary,
+                  padding: 15,
+                  borderRadius: 15,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  // marginVertical: 20,
+                  height: 60,
+                  borderWidth: 1.5,
+                  borderColor: colors.white
+                }}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: '700',
+                    fontFamily: 'Comfortaa',
+                    color: colors.white
+                  }}>
+                  Register
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </TouchableWithoutFeedback>

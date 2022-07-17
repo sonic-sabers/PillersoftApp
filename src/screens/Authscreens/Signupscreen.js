@@ -216,13 +216,13 @@ export default function Signupscreen({ navigation }) {
   let dimensions = Dimensions.get('window');
   let imageHeight = dimensions.height;
   return (
-    <KeyboardavoidingWrapper>
-
+    <KeyboardavoidingWrapper style={{ flex: 1, height: '100%', backgroundColor: 'green' }}>
       <View
         style={{
+          backgroundColor: colors.primary,
+          padding: 15,
           flex: 1,
-          backgroundColor: colors.background,
-          padding: 10,
+          paddingRight: 20,
         }}>
         {Loading && <View
           style={[{
@@ -239,14 +239,22 @@ export default function Signupscreen({ navigation }) {
             marginBottom: -30
 
           }]} />}
-        <Octicons name='arrow-left'
+        <TouchableOpacity
           onPress={() =>
             navigation.navigate('Onboardingscreen', {
               status: 'back',
             })}
-          // navigation.navigate('Onboardingscreen')}
-
-          size={30} color={colors.white} />
+          style={{
+            backgroundColor: colors.white,
+            height: 36,
+            width: 36,
+            borderRadius: 60,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Octicons name='arrow-left'
+            size={27} color={colors.primary} />
+        </TouchableOpacity>
         <Text
           style={{
             fontSize: 40,
@@ -281,16 +289,7 @@ export default function Signupscreen({ navigation }) {
         >
           Register Here
         </Text>
-        <Styledtextinput
-          // style={styles.textinput}
-          onChangeText={setFirstName}
-          value={FirstName}
-          placeholder='First Name'
-          placeholderTextColor={colors.inputs}
-          autoCapitalize="none"
-          title='First Name'
-          icon='user'
-        />
+
         <Styledtextinput
           // style={styles.textinput}
           onChangeText={setLastName}
@@ -389,89 +388,6 @@ export default function Signupscreen({ navigation }) {
           />
         </Hstack>
 
-        <Styledtextinput
-          onChangeText={setCountryCode}
-          value={CountryCode}
-          placeholder='Code'
-          placeholderTextColor={colors.inputs}
-          autoCapitalize="none"
-          title='Enter CountryCode'
-          icon='earth'
-          keyboardType='numeric'
-          MaterialCommunityIcons
-          maxLength={4}
-        />
-        <Styledtextinput
-          onChangeText={setContactNumber}
-          value={ContactNumber}
-          placeholder='Contact Number'
-          placeholderTextColor={colors.inputs}
-          autoCapitalize="none"
-          title='Enter Your Contact Number'
-          icon='contacts-outline'
-          keyboardType='numeric'
-          MaterialCommunityIcons
-          maxLength={10}
-        />
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: '400',
-            fontFamily: 'Comfortaa',
-            color: '#faedcd',
-            marginTop: 10,
-          }}>
-          Select Gender
-        </Text>
-        <Hstack >
-          <Hstack centered>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: '400',
-                fontFamily: 'Comfortaa',
-                color: '#faedcd'
-              }}>
-              Male
-            </Text>
-            <RadioButton
-              uncheckedColor='#ffbd00'
-              value="Male"
-              status={Gender === 'Male' ? 'checked' : 'unchecked'}
-              onPress={() => setGender('Male')}
-            />
-          </Hstack>
-          <Hstack centered>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: '400',
-                fontFamily: 'Comfortaa',
-                color: '#faedcd'
-              }}>
-              Female
-            </Text>
-            <RadioButton
-              uncheckedColor='#ffbd00'
-              value="Female"
-              status={Gender === 'Female' ? 'checked' : 'unchecked'}
-              onPress={() => setGender('Female')}
-            />
-          </Hstack >
-
-        </Hstack>
-        <Styledtextinput
-          onChangeText={setZipCode}
-          value={ZipCode}
-          placeholder='ZipCode'
-          placeholderTextColor={colors.inputs}
-          autoCapitalize="none"
-          title='Enter Your ZipCode'
-          icon='sign-real-estate'
-          keyboardType='numeric'
-          MaterialCommunityIcons
-          maxLength={6}
-        />
         <TouchableOpacity
           onPress={() => {
             Loading ? null :
