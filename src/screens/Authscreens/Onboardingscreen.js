@@ -1,9 +1,7 @@
 import React,
 {
-    Component,
     useState,
     useEffect,
-    useRef
 } from 'react';
 import {
     StyleSheet,
@@ -12,21 +10,24 @@ import {
     Text,
     TouchableOpacity,
     View,
-    TextInput,
     ScrollView,
     KeyboardAvoidingView,
     SafeAreaView,
     ImageBackground,
-    FlatList,
     ViewPropTypes,
     Switch,
     Dimensions,
     Animated,
-    TouchableWithoutFeedback,
 
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { colors } from '../../constants';
+import { colors } from '../../constants'
+
+let dimensions = Dimensions.get('window');
+let imageHeight = Math.round((dimensions.width * 431) / 360);
+let imageWidth = dimensions.width;
+
+
 
 export default function Onboardingscreen({ route }) {
     const navigation = useNavigation();
@@ -35,11 +36,11 @@ export default function Onboardingscreen({ route }) {
         if (!route.params?.status) {
             setTimeout(() => {
                 Animated.timing(animation, {
-                    toValue: 100,
-                    duration: 2000,
+                    toValue: 50,
+                    duration: 1000,
                     useNativeDriver: true
                 }).start(() => {
-                    setanimation(100);
+                    setanimation(50);
                 });
             }, 1000);
         }
@@ -50,40 +51,69 @@ export default function Onboardingscreen({ route }) {
         }],
     }
     return (
-        <View style={{ flex: 1, backgroundColor: '#fff', padding: 15 }}>
+        <View style={{
+            flex: 1,
+            backgroundColor: '#fff',
+    
+        }}>
             <View style={{
-                flex: 1, justifyContent: 'center',
-                // backgroundColor: 'green',
+                flex: 1,
+        
+        
                 alignItems: 'center',
-                justifyContent: 'center'
+                // 
             }}>
-                <Image
-                    source={require('../../assets/images/logo.png')}
-                    style={{
-                        width: 130,
-                        height: 130,
-                        alignSelf: 'center',
-                    }} />
 
-                <Animated.View style={[{}, transformStyle]} >
+
+                <ImageBackground
+                    style={{
+                        height: imageHeight,
+                        width: imageWidth,
+                
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                    source={require('../../assets/images/Obbg.png')}
+                >
+
+                    <Image
+                        source={require('../../assets/images/Logo2.png')}
+                        style={{
+                            width: 130,
+                            height: 130,
+                            alignSelf: 'center',
+                        }} />
                     <Text
                         style={{
-                            fontSize: 15,
+                            fontSize: 20,
                             fontWeight: '700',
-                            fontFamily: 'Comfortaa',
-                            textAlign: 'center',
-                            alignSelf: 'center',
-                            color: colors.mytext,
+                            fontFamily: 'Roboto',
+                            color: colors.white,
                             marginTop: 10,
                         }}>
-                        Think Different
+                        SCALERICH
                     </Text>
-                </Animated.View >
+                    <Animated.View style={[{}, transformStyle]} >
+                        <Text
+                            style={{
+                                fontSize: 14,
+                                fontWeight: '500',
+                                fontFamily: 'Comfortaa',
+                                textAlign: 'center',
+                                alignSelf: 'center',
+                                color: colors.white,
+                                marginTop: 10,
+                                maxWidth: '60%',
+                            }}>
+                            Bonds  Investment Simple And Easy For Everyone
+                        </Text>
+                    </Animated.View >
+                </ImageBackground>
             </View>
 
-            {animation == 100
+            {animation == 50
                 ?
-                <View style={{ height: 128 }}>
+                <View style={{ height: 128, paddingHorizontal: 15, paddingBottom: 10, }}>
                     <TouchableOpacity style={{
                         borderRadius: 20,
                         borderWidth: 2,

@@ -8,34 +8,34 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+  KeyboardAvoidingView,
 
-  Dimensions,
-  Animated,
   TouchableWithoutFeedback,
   Alert,
   ActivityIndicator,
+  Keyboard
 
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../constants';
-import Entypo from 'react-native-vector-icons/Entypo';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
+
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Octicons from 'react-native-vector-icons/Octicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { RadioButton } from 'react-native-paper';
 import { Hstack, KeyboardavoidingWrapper } from '../../components';
 import fetchService from '../../services/fetchService';
-
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 const Styledtextinput = (props) => {
   const [text, onChangeText] = React.useState("");
   // https://godconnect.online/api/UserMgmtAPI/ProfileCheck
+  const [hidePass, setHidePass] = React.useState(true);
+  const navigation = useNavigation();
+
   return (
     <View>
-
       <Text
         style={{
           fontSize: 15,
@@ -56,7 +56,6 @@ const Styledtextinput = (props) => {
         alignItems: 'center',
         marginTop: -10,
       }}>
-
         {!props.MaterialCommunityIcons ? <FontAwesome name={props.icon} size={20} color={colors.inputs} style={{
           marginBottom: -10
         }} /> :
@@ -72,151 +71,113 @@ const Styledtextinput = (props) => {
             color: '#caf0f8',
             flex: 1,
           }}
-          // onChangeText={props.onChangeText}
           value={text}
+          secureTextEntry={hidePass ? true : false}
+
           placeholder={props.lable}
           placeholderTextColor={colors.inputs}
           autoCapitalize="none"
           {...props}
-        // onEndEditing={() => {
-        //   if (input) onChangeText(input);
-        //   onChangeText("");
-        // }}
         />
+        {props.password &&
+          <FontAwesome5
+            name={hidePass ? 'eye-slash' : 'eye'}
+            size={17}
+            color="#caf0f8"
+            onPress={() => setHidePass(!hidePass)}
+          />}
       </View>
-      {props.error ? (
-        <Text
-          style={{
-            color: 'red',
-            fontSize: 13.5,
-            marginBottom: -10,
-            marginLeft: 11,
-          }}>
-          {props.error}
-        </Text>
-      ) : (
-        <Text
-          style={{
-            color: 'red',
-            fontSize: 13.5,
-            marginBottom: -10,
-            marginLeft: 11,
-          }}></Text>
-      )}
+      <Hstack between>
+        {props.error ? (
+          <Text
+            style={{
+              color: 'red',
+              fontSize: 13.5,
+              marginBottom: -10,
+              marginLeft: 11,
+            }}>
+            {props.error}
+          </Text>
+        ) : (
+          <Text
+            style={{
+              color: 'red',
+              fontSize: 13.5,
+              marginBottom: -10,
+              marginLeft: 11,
+            }}></Text>
+        )}
+
+      </Hstack>
     </View>
   )
 }
 
-validateEmail = (email) => {
-  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-  if (emailRegex.test(email)) {
-    return true;
-  } else {
-    return false;
-  }
-}
-export default function Signupscreen({ navigation }) {
+export default function Signupscreen() {
+  // const [EmailId, setEmailId] = useState('');
+  const [Error, setError] = useState('')
+  const navigation = useNavigation();
   const [Loading, setLoading] = React.useState("");
-  const [checked, setChecked] = React.useState('');
   const [hidePass, setHidePass] = React.useState(true);
-  const [hidecnfPass, setcnfHidePass] = React.useState(true);
-  const [EmailId, setEmailId] = useState('')
-  const [UserName, setUserName] = useState('')
-  const [FirstName, setFirstName] = useState('')
-  const [LastName, setLastName] = useState('')
-  const [PWord, setPWord] = useState('')
-  const [cnfPWord, setcnfPWord] = useState('')
-  const [CountryCode, setCountryCode] = useState('')
-  const [ContactNumber, setContactNumber] = useState('')
-  const [ZipCode, setZipCode] = useState('')
-  const [Gender, setGender] = useState('')
-  const [error, setError] = useState('');
+  const FCMToken = 'Its an user token';
+  const UserInfo = {
+    Name: '',
+    phonenumber: '',
+    EmailId: '',
+    PWord: '',
+    cnfPWord: '',
+  };
 
-  const handleSignup = async () => {
-    if (FirstName === '') {
-      Alert.alert('Error!', 'Please enter Details', [{ text: 'Okay' }]);
-      return;
-    }
-    if (LastName === '') {
-      Alert.alert('Error!', 'Please enter LastName', [{ text: 'Okay' }]);
-      return;
-    }
-    if (UserName === '') {
-      Alert.alert('Error!', 'Please enter UserName', [{ text: 'Okay' }]);
-      return;
-    }
-    if (EmailId === '') {
-      Alert.alert('Error!', 'Please enter Email', [{ text: 'Okay' }]);
-      return;
-    }
-    if (PWord === '') {
-      Alert.alert('Error!', 'Please enter Password', [{ text: 'Okay' }]);
-      return;
-    }
-    if (cnfPWord === '') {
-      Alert.alert('Error!', 'Please enter Confirm Password', [{ text: 'Okay' }]);
-      return;
-    }
-    if (PWord != cnfPWord) {
-      Alert.alert('Error!', 'Password and Confirm password must be same', [{ text: 'Okay' }]);
-      return;
-    }
-    if (CountryCode === '') {
-      Alert.alert('Error!', 'Please enter CountryCode ', [{ text: 'Okay' }]);
-      return;
-    }
-    if (ContactNumber === '') {
-      Alert.alert('Error!', 'Please enter ContactNumber', [{ text: 'Okay' }]);
-      return;
-    }
-    if (ZipCode === '') {
-      Alert.alert('Error!', 'Please enter ZipCode', [{ text: 'Okay' }]);
-      return;
-    }
-    if (Gender === '') {
-      Alert.alert('Error!', 'Please enter Gender', [{ text: 'Okay' }]);
-      return;
-    }
+  // const hybridregex = /^\d{10}\t((?>[a-zA-Z\d!#$%&'*+\-\/=?^_`{|}~]+\x20*|""((?=[\x01-\x7f])[^""\\]|\\[\x01-\x7f])*""\x20*)*(?<angle><))?((?!\.)(?>\.?[a-zA-Z\d!#$%&'*+\-\/=?^_`{|}~]+)+|""((?=[\x01-\x7f])[^""\\]|\\[\x01-\x7f])*"")@(((?!-)[a-zA-Z\d\-]+(?<!-)\.)+[a-zA-Z]{2,}|\[(((?(?<!\[)\.)(25[0-5]|2[0-4]\d|[01]?\d?\d)){4}|[a-zA-Z\d\-]*[a-zA-Z\d]:((?=[\x01-\x7f])[^\\\[\]]|\\[\x01-\x7f])+)\])(?(angle)>))/
+  const regex = /^(?:\d{10}|\w+@\w+\.\w{2,3})$/
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+  const validationSchema = Yup.object({
+    Name: Yup
+      .string()
+      .matches(/^[A-Za-z ]*$/, 'Please enter valid name')
+      .max(40)
+      .required(),
+    phonenumber: Yup.string()
+      .required("required")
+      .matches(phoneRegExp, 'Phone number is not valid')
+      .min(10, "to short")
+      .max(10, "to long"),
+    EmailId: Yup.string()
+      .trim()
+      .email('Invalid email format')
+      .min(6, 'Minimum 6 characters is required')
+      .required('Required'),
+    PWord: Yup.string()
+      .trim()
+      .required("Please enter your password")
+      .matches(
+        /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+        "Password must contain at least 8 characters, one uppercase, one number and one special case character"
+      ),
+    cnfPWord: Yup.string().equals(
+      [Yup.ref('PWord'), null],
+      'Password does not match!',
+    ),
+  });
+  const handlesSignup = async (values) => {
+    console.log('values3', values)
     setLoading(true);
-    const response = await fetchService.register(
-      EmailId,
-      UserName,
-      FirstName,
-      LastName,
-      PWord,
-      CountryCode,
-      ContactNumber,
-      ZipCode,
-      Gender,
-    );
+    const response = await fetchService.login(values.EmailId, values.PWord, FCMToken);
     setLoading(false);
-    console.log(response);
-    {
-      response.msg &&
-        Alert.alert('Error!', response.msg, [{ text: 'Okay' }]);
-
-    }
     if (response.status) {
-      let userData = response.data ? response.data : {};
-      {
-        console.log(userData);
-        // userData.token = userData.access_token;
-      }
-      // console.log('user', userData);
-      navigation.replace('Homescreen', {
-        EmailId: EmailId,
+      navigation.replace('Bottomtab', {
+        EmailId: values.EmailId,
       });
-      // navigation.navigate('Appscreen');
     } else {
       setError(response.message);
+      Alert.alert(response.msg)
     }
   };
 
-  let dimensions = Dimensions.get('window');
-  let imageHeight = dimensions.height;
   return (
-    <KeyboardavoidingWrapper style={{ flex: 1, height: '100%', backgroundColor: 'green' }}>
+    <KeyboardavoidingWrapper style={{ flex: 1 }}>
+      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss} > */}
       <View
         style={{
           backgroundColor: colors.primary,
@@ -224,7 +185,7 @@ export default function Signupscreen({ navigation }) {
           flex: 1,
           paddingRight: 20,
         }}>
-        {Loading && <View
+        {/* {Loading && <View
           style={[{
             position: 'absolute',
             left: 0,
@@ -238,199 +199,255 @@ export default function Signupscreen({ navigation }) {
             // height: 100,
             marginBottom: -30
 
-          }]} />}
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('Onboardingscreen', {
-              status: 'back',
-            })}
-          style={{
-            backgroundColor: colors.white,
-            height: 36,
-            width: 36,
-            borderRadius: 60,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Octicons name='arrow-left'
-            size={27} color={colors.primary} />
-        </TouchableOpacity>
-        <Text
-          style={{
-            fontSize: 40,
-            fontWeight: '700',
-            fontFamily: 'Comfortaa',
-            color: colors.white,
-            marginTop: 15,
-          }}
-        >
-          Hello!
-        </Text>
-        {error && <Text
-          style={{
-            fontSize: 40,
-            fontWeight: '700',
-            fontFamily: 'Comfortaa',
-            color: 'red',
-            marginTop: 15,
-          }}
-        >
-          error
-        </Text>}
-        <Text
-          style={{
-            fontSize: 25,
-            fontWeight: '600',
-            fontFamily: 'Comfortaa',
-            color: colors.white,
-            marginTop: -5,
-            marginBottom: 15
-          }}
-        >
-          Register Here
-        </Text>
+          }]} />} */}
 
-        <Styledtextinput
-          // style={styles.textinput}
-          onChangeText={setLastName}
-          value={LastName}
-          placeholder='Last Name'
-          placeholderTextColor={colors.inputs}
-          autoCapitalize="none"
-          title='Last Name'
-          icon='user'
-        />
-        <Styledtextinput
-          // style={styles.textinput}
-          onChangeText={setUserName}
-          value={UserName}
-          placeholder='User Name'
-          placeholderTextColor={colors.inputs}
-          autoCapitalize="none"
-          title='UserName'
-          icon='user'
-        />
-        <Styledtextinput
-          onChangeText={setEmailId}
-          value={EmailId}
-          placeholder='Email'
-          placeholderTextColor={colors.inputs}
-          autoCapitalize="none"
-          title='Enter your email'
-          icon='email'
-          keyboardType='email-address'
-          MaterialCommunityIcons
-
-        />
-        <Hstack centered between styles={[{
-          // marginTop: 15,
-          // backgroundColor: '#99999990',
-          // borderRadius: 10,
-          // paddingHorizontal: 15,
-        }]}>
-          <Styledtextinput
-            onChangeText={setPWord}
-            value={PWord}
-            placeholder='Enter Password'
-            placeholderTextColor={colors.inputs}
-            autoCapitalize="none"
-            title='Enter your Password'
-            icon='lock'
-            keyboardType='password'
-            secureTextEntry={hidePass ? true : false}
-            style={{
-              width: '80%',
-              marginLeft: 5,
-              fontWeight: '400',
-              fontSize: 15,
-              marginBottom: -10,
-              color: '#caf0f8',
-
-            }}
-
-          />
-          <FontAwesome5
-            name={hidePass ? 'eye-slash' : 'eye'}
-            size={20}
-            // style={{ alignSelf: 'flex-end' }}
-            color="#caf0f8"
-            onPress={() => setHidePass(!hidePass)}
-          />
-        </Hstack>
-        <Hstack centered between styles={[{
-
-        }]}>
-          <Styledtextinput
-            onChangeText={setcnfPWord}
-            value={cnfPWord}
-            placeholder='Confirm Password'
-            placeholderTextColor={colors.inputs}
-            autoCapitalize="none"
-            title='Enter Confirm Password'
-            icon='lock'
-            keyboardType='password'
-            secureTextEntry={hidecnfPass ? true : false}
-            style={{
-              width: '80%',
-              marginLeft: 5,
-              fontWeight: '400',
-              fontSize: 15,
-              marginBottom: -10,
-              color: '#caf0f8',
-
-            }}
-          />
-          <FontAwesome5
-            name={hidecnfPass ? 'eye-slash' : 'eye'}
-            size={20}
-            color="#caf0f8"
-            onPress={() => setcnfHidePass(!hidecnfPass)}
-          />
-        </Hstack>
-
-        <TouchableOpacity
-          onPress={() => {
-            Loading ? null :
-              handleSignup()
-          }}
-
-          style={{
-            backgroundColor: '#faedcd',
-            padding: 15,
-            borderRadius: 15,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginVertical: 20,
-            height: 60
-          }}>
-          {Loading ?
-            <ActivityIndicator />
-            : <Text
+        <View style={{
+          flex: 1,
+          justifyContent: 'space-between',
+          // backgroundColor: 'green',
+          paddingBottom: 10,
+        }}>
+          <View>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('Onboardingscreen', {
+                  status: 'back',
+                })}
               style={{
-                fontSize: 20,
-                fontWeight: '700',
-                fontFamily: 'Comfortaa',
-                color: '#ff5400'
+                backgroundColor: colors.white,
+                height: 36,
+                width: 36,
+                borderRadius: 60,
+                justifyContent: 'center',
+                alignItems: 'center',
               }}>
-              Press to signup
+              <Octicons name='arrow-left'
 
-            </Text>}
-        </TouchableOpacity>
+                size={27} color={colors.primary} />
+            </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 50,
+                fontWeight: '700',
+                fontFamily: 'Roboto',
+                color: colors.white,
+                marginTop: 5,
+              }}
+            >
+              Welcome
+            </Text>
 
-      </View >
+            <Text
+              style={{
+                fontSize: 25,
+                fontWeight: '600',
+                fontFamily: 'Comfortaa',
+                color: colors.white,
+                marginTop: -5,
+                marginBottom: 15
+              }}
+            >
+              Register Here
+            </Text>
+          </View>
+          <View>
+            <Formik
+              initialValues={UserInfo}
+              onSubmit={(values, formikActions) => {
+                // setTimeout(() => {
+                // console.log(values);
+                formikActions.resetForm();
+                formikActions.setSubmitting(false);
+                handlesSignup(values);
+                // }, 1);
+              }}
+              validationSchema={validationSchema}>
+              {({
+                values,
+                errors,
+                touched,
+                isSubmitting,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+              }) => {
+                {
+                }
+                const {
+                  Name,
+                  phonenumber,
+                  EmailId,
+                  PWord,
+                  cnfPWord
+                } = values;
+                return (
+                  <>
+                    <Styledtextinput
+                      // onChangeText={setEmailId}
+                      value={Name}
+                      placeholder='Name'
+                      placeholderTextColor={colors.inputs}
+                      autoCapitalize="none"
+                      title='Enter your Name'
+                      icon='user'
+                      // MaterialCommunityIcons
+                      keyboardType='email-address'
+                      error={touched.Name && errors.Name}
+                      onChangeText={handleChange('Name')}
+                      onBlur={handleBlur('Name')}
+                    />
+                    {/* export type KeyboardType = 'default' | 'email-address' | 'numeric' | 'phone-pad' | 'number-pad' | 'decimal-pad'; */}
+
+                    <Styledtextinput
+                      // onChangeText={setEmailId}
+                      value={phonenumber}
+                      placeholder='Phone'
+                      placeholderTextColor={colors.inputs}
+                      autoCapitalize="none"
+                      title='Enter your Phone Number'
+                      icon='email'
+                      keyboardType='phone-pad'
+                      MaterialCommunityIcons
+                      maxLength={10}
+                      error={touched.phonenumber && errors.phonenumber}
+                      onChangeText={handleChange('phonenumber')}
+                      onBlur={handleBlur('phonenumber')}
+                    />
+                    <Styledtextinput
+                      // onChangeText={setEmailId}
+                      value={EmailId}
+                      placeholder='Email'
+                      placeholderTextColor={colors.inputs}
+                      autoCapitalize="none"
+                      title='Enter your Email'
+                      icon='email'
+                      keyboardType='email-address'
+                      MaterialCommunityIcons
+                      error={touched.EmailId && errors.EmailId}
+                      onChangeText={handleChange('EmailId')}
+                      onBlur={handleBlur('EmailId')}
+                    />
+                    {/* <Hstack centered between styles={[{}]}> */}
+                    <Styledtextinput
+                      // onChangeText={setPWord}
+                      value={PWord}
+                      placeholder='Password'
+                      placeholderTextColor={colors.inputs}
+                      autoCapitalize="none"
+                      title='Enter your Password'
+                      icon='lock'
+                      keyboardType='password'
+                      error={touched.PWord && errors.PWord}
+                      onChangeText={handleChange('PWord')}
+                      onBlur={handleBlur('PWord')}
+                      password
+                    />
+                    <Styledtextinput
+                      // onChangeText={setPWord}
+                      value={cnfPWord}
+                      placeholder='Confirm Password'
+                      placeholderTextColor={colors.inputs}
+                      autoCapitalize="none"
+                      title='Enter your Confirm Password'
+                      icon='lock'
+                      keyboardType='password'
+                      error={touched.cnfPWord && errors.cnfPWord}
+                      onChangeText={handleChange('cnfPWord')}
+                      onBlur={handleBlur('cnfPWord')}
+                      password
+                    />
+
+                    <TouchableOpacity
+                      // onPress={() => {
+                      //   Loading ? null :
+                      //     handleLogin()
+                      // }}
+                      submitting={isSubmitting}
+                      onPress={handleSubmit}
+                      style={{
+                        backgroundColor: '#FFFFFF',
+                        padding: 15,
+                        borderRadius: 15,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        // marginVertical: 20,
+                        marginTop: 20,
+                        height: 60,
+                      }}>
+                      {Loading ?
+                        <ActivityIndicator />
+                        : <Text
+                          style={{
+                            fontSize: 20,
+                            fontWeight: '700',
+                            fontFamily: 'Comfortaa',
+                            color: colors.primary
+                          }}>
+                          Register
+                        </Text>}
+                    </TouchableOpacity>
+                  </>
+                );
+              }}
+            </Formik>
+            <Hstack centered styles={{ marginVertical: 15, }}>
+              <View
+                style={{
+                  height: 2,
+                  flex: 1,
+                  backgroundColor: colors.white3,
+                  borderRadius: 40
+                }} />
+              <Text
+                style={{
+                  fontSize: 17,
+                  fontWeight: '700',
+                  fontFamily: 'Comfortaa',
+                  color: colors.white3,
+                  marginHorizontal: 10,
+                  marginTop: -5,
+
+                }}>
+                or
+              </Text>
+              <View
+                style={{
+                  height: 2,
+                  flex: 1,
+                  borderRadius: 40,
+                  backgroundColor: colors.white3
+                }} />
+            </Hstack>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Signupscreen')
+              }}
+              style={{
+                backgroundColor: colors.primary,
+                padding: 15,
+                borderRadius: 15,
+                justifyContent: 'center',
+                alignItems: 'center',
+                // marginVertical: 20,
+                height: 60,
+                borderWidth: 1.5,
+                borderColor: colors.white
+              }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: '700',
+                  fontFamily: 'Comfortaa',
+                  color: colors.white
+                }}>
+                Log In
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
     </KeyboardavoidingWrapper>
   )
 }
 
-const styles = StyleSheet.create({
-  textinput: {
-    fontWeight: '600',
-    fontSize: 20,
-    marginTop: 15,
-    color: '#caf0f8',
-    backgroundColor: '#99999990',
-    borderRadius: 10,
-    padding: 10,
-    paddingLeft: 15,
-  },
-})
+const styles = StyleSheet.create({})

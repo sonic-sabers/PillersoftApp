@@ -57,7 +57,7 @@ export default function Animation() {
 				justifyContent: 'center'
 			}}>
 				<Image
-					source={require('../../assets/images/logo.png')}
+					source={require('../../assets/images/logo2.png')}
 					style={{
 						width: 130,
 						height: 130,

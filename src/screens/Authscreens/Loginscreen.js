@@ -82,7 +82,7 @@ const Styledtextinput = (props) => {
         {props.password &&
           <FontAwesome5
             name={hidePass ? 'eye-slash' : 'eye'}
-            size={20}
+            size={17}
             color="#caf0f8"
             onPress={() => setHidePass(!hidePass)}
           />}
@@ -180,7 +180,7 @@ export default function Loginscreen() {
       // let userData = response.data ? response.data : {};
       // { }
       // console.log('values3', values);
-      navigation.replace('Homescreen', {
+      navigation.replace('Bottomtab', {
         EmailId: values.EmailId,
       });
     } else {
@@ -200,7 +200,7 @@ export default function Loginscreen() {
             flex: 1,
             paddingRight: 20,
           }}>
-          {Loading && <View
+          {/* {Loading && <View
             style={[{
               position: 'absolute',
               left: 0,
@@ -214,7 +214,7 @@ export default function Loginscreen() {
               // height: 100,
               marginBottom: -30
 
-            }]} />}
+            }]} />} */}
 
           <View style={{
             flex: 1,

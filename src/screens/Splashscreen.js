@@ -34,7 +34,7 @@ export default function Splashscreen() {
             alignItems: 'center',
         }}>
             <Image
-                source={require('../assets/images/logo.png')}
+                source={require('../assets/images/Logo2.png')}
                 style={{
                     width: 130,
                     height: 130
