@@ -185,21 +185,7 @@ export default function Signupscreen() {
           flex: 1,
           paddingRight: 20,
         }}>
-        {/* {Loading && <View
-          style={[{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            right: 0,
-            end: 0,
-            flex: 1,
-            backgroundColor: '#00000070',
-            zIndex: 400,
-            height: '100%',
-            // height: 100,
-            marginBottom: -30
-
-          }]} />} */}
+    
 
         <View style={{
           flex: 1,
@@ -254,12 +240,12 @@ export default function Signupscreen() {
             <Formik
               initialValues={UserInfo}
               onSubmit={(values, formikActions) => {
-                // setTimeout(() => {
+                handlesSignup(values);
+                setTimeout(() => {
                 // console.log(values);
                 formikActions.resetForm();
                 formikActions.setSubmitting(false);
-                handlesSignup(values);
-                // }, 1);
+                }, 1000);
               }}
               validationSchema={validationSchema}>
               {({

@@ -1,43 +1,21 @@
 import { StyleSheet, Text, Button, BackHandler, Alert, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../../constants';
-import { Actions } from 'react-native-router-flux'
+import Homescreen from './Homescreen';
 
 function Feed() {
     const navigation = useNavigation();
-    // const backActions = () => {
-    //     Alert.alert("Hold on!", "Are you sure you want to go back?", [
-    //         {
-    //             text: "Back to onboardingscreen",
-    //             onPress: () => navigation.goBack()
-    //         },
-    //         {
-    //             text: "Cancel",
-    //             onPress: () => null,
-    //             style: "cancel"
-    //         },
-    //         { text: "YES", onPress: () => BackHandler.exitApp() },
-
-
-    //     ]);
-    //     return true;
-    // };
-    // const backHandler = BackHandler.addEventListener(
-    //     "hardwareBackPress",
-    //     backActions
-    // );
     return (
         <View style={{
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: '#3bc13a30'
-            // marginBottom: -30,
         }}>
             <Button
                 title="Go to Profile"
@@ -76,11 +54,11 @@ const Tab = createBottomTabNavigator();
 
 
 
-function MyTabs() {
-
+function MyTabs({ EmailId }) {
+    // console.log(EmailId);
     return (
         <Tab.Navigator
-            initialRouteName="Feed"
+            initialRouteName="Homescreen"
             screenOptions={{
                 tabBarActiveTintColor: colors.primary,
                 headerShown: false,
@@ -110,15 +88,28 @@ function MyTabs() {
         // tabBar={(props) => <MyTabBar {...props} />}
         >
             <Tab.Screen
-                name="Feed"
-                component={Feed}
-                options={{
-                    tabBarLabel: 'Home',
+                name="Homescreen"
+                component={Homescreen}
+                // children={() => }
+                // options={{
+                //     tabBarLabel: 'Homescreen',
+                //     tabBarIcon: ({ color, size }) => (
+                //         <MaterialCommunityIcons name="home" color={color} size={20} />
+                //     ),
+
+                // }}
+                initialParams={{ EmailId3: EmailId }}
+                options={({ route, navigation }) => ({
+                    title: route.params.userId,
+                    tabBarLabel: 'Homescreen',
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="home" color={color} size={20} />
                     ),
-                }}
+
+                })}
             />
+            {/* <Homescreen EmailId1={'1234sdcsd@gmaiecsdcl.com'} /> */}
+            {/* </Tab.Screen> */}
             <Tab.Screen
                 name="Notifications"
                 component={Notifications}
@@ -155,21 +146,20 @@ function MyTabs() {
     );
 }
 
-export default function Bottomtab() {
+export default function Bottomtab({ route }) {
+    const { EmailId, otherParam } = route.params;
+    const [EmailIds, setEmailIds] = useState('1234@gmail.com')
+    useEffect(() => {
+        if (route.params?.EmailId) {
+            setEmailIds(EmailId);
+        }
+    }, []);
     return (
         <NavigationContainer independent>
-            <MyTabs />
+            <MyTabs EmailId={EmailId} />
         </NavigationContainer>
     );
 }
 
-
-// export default function Bottomtab() {
-//   return (
-//     <View>
-//       <Text>Bottomtab</Text>
-//     </View>
-//   )
-// }
 
 const styles = StyleSheet.create({})

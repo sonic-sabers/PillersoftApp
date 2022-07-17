@@ -5,17 +5,11 @@ import React,
 } from 'react';
 import {
     StyleSheet,
-    Button,
     Image,
     Text,
     TouchableOpacity,
     View,
-    ScrollView,
-    KeyboardAvoidingView,
-    SafeAreaView,
     ImageBackground,
-    ViewPropTypes,
-    Switch,
     Dimensions,
     Animated,
 
@@ -54,28 +48,21 @@ export default function Onboardingscreen({ route }) {
         <View style={{
             flex: 1,
             backgroundColor: '#fff',
-    
         }}>
             <View style={{
                 flex: 1,
-        
-        
                 alignItems: 'center',
                 // 
             }}>
-
-
                 <ImageBackground
                     style={{
                         height: imageHeight,
                         width: imageWidth,
-                
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}
                     source={require('../../assets/images/Obbg.png')}
                 >
-
                     <Image
                         source={require('../../assets/images/Logo2.png')}
                         style={{
@@ -95,16 +82,7 @@ export default function Onboardingscreen({ route }) {
                     </Text>
                     <Animated.View style={[{}, transformStyle]} >
                         <Text
-                            style={{
-                                fontSize: 14,
-                                fontWeight: '500',
-                                fontFamily: 'Comfortaa',
-                                textAlign: 'center',
-                                alignSelf: 'center',
-                                color: colors.white,
-                                marginTop: 10,
-                                maxWidth: '60%',
-                            }}>
+                            style={styles.minitext}>
                             Bonds  Investment Simple And Easy For Everyone
                         </Text>
                     </Animated.View >
@@ -114,43 +92,19 @@ export default function Onboardingscreen({ route }) {
             {animation == 50
                 ?
                 <View style={{ height: 128, paddingHorizontal: 15, paddingBottom: 10, }}>
-                    <TouchableOpacity style={{
-                        borderRadius: 20,
-                        borderWidth: 2,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        padding: 14,
-                        borderColor: colors.primary
-                    }}
+                    <TouchableOpacity style={styles.loginbutton}
                         onPress={() => navigation.navigate('Loginscreen')}
                     >
                         <Text
-                            style={{
-                                fontSize: 20,
-                                fontWeight: '400',
-                                fontFamily: 'Comfortaa',
-                                color: colors.primary
-                            }}>
+                            style={styles.logintext}>
                             Log In
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Signupscreen')}
-                        style={{
-                            borderRadius: 20,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            padding: 14,
-                            backgroundColor: colors.primary,
-                            marginTop: 10,
-                        }}>
+                        style={styles.registerbutton}>
                         <Text
-                            style={{
-                                fontSize: 20,
-                                fontWeight: '400',
-                                fontFamily: 'Comfortaa',
-                                color: colors.white
-                            }}>
+                            style={styles.registertext}>
                             Register
                         </Text>
                     </TouchableOpacity>
@@ -162,4 +116,43 @@ export default function Onboardingscreen({ route }) {
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    minitext: {
+        fontSize: 14,
+        fontWeight: '500',
+        fontFamily: 'Comfortaa',
+        textAlign: 'center',
+        alignSelf: 'center',
+        color: colors.white,
+        marginTop: 10,
+        maxWidth: '60%',
+    },
+    registerbutton: {
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 14,
+        backgroundColor: colors.primary,
+        marginTop: 10,
+    },
+    registertext: {
+        fontSize: 20,
+        fontWeight: '400',
+        fontFamily: 'Comfortaa',
+        color: colors.white
+    },
+    loginbutton: {
+        borderRadius: 20,
+        borderWidth: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 14,
+        borderColor: colors.primary
+    },
+    logintext: {
+        fontSize: 20,
+        fontWeight: '400',
+        fontFamily: 'Comfortaa',
+        color: colors.primary
+    },
+})

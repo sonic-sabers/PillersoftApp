@@ -1,17 +1,22 @@
 import { StyleSheet, Text, Button, View } from 'react-native'
 import React, { Component, useState, useEffect } from 'react'
 
-export default function Homescreen({ route, navigation }) {
+export default function Homescreen({ route, navigation, EmailId3 }) {
     /* 2. Get the param */
     const { EmailId, otherParam } = route.params;
     const [EmailIds, setEmailIds] = useState('1234@gmail.com')
     useEffect(() => {
-        if (route.params?.EmailId) {
-            setEmailIds(EmailId)
-            // console.log(EmailId);
-            // console.log(EmailIds);
+        if (route.params?.EmailId3) {
+            setEmailIds(route.params.EmailId3)
         }
+        // setEmailIds(EmailId3)
+        // console.log(EmailId)
+        // console.log(EmailId3)
+        // console.log(route.params)
     }, []);
+    // console.log('1',EmailId3)
+    // console.log('2',EmailId)
+    // console.log('3',route.params)
     return (
         <View
             style={{
@@ -29,11 +34,9 @@ export default function Homescreen({ route, navigation }) {
                 }}>
                 EmailId:{EmailIds}
             </Text>
-            <Button title="Logout"
-                onPress={() =>
-                    navigation.navigate('Onboardingscreen', {
-                        status: 'back',
-                    })}
+            <Button
+                title="Go to Profile"
+                onPress={() => navigation.navigate('Profile')}
             />
         </View>
     )
