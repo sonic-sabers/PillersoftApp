@@ -10,8 +10,9 @@ export default colors = {
     color3: '#FA4A0C',
     white2: '#F6F6F9',
     mytext: '#333',
-    background:'#003049',
-    inputs:'#f1faee',
-    white3:'#ffffff80'
+    background: '#003049',
+    inputs: '#f1faee',
+    white3: '#ffffff80',
+    lightblack: '#00000050',
 
 }

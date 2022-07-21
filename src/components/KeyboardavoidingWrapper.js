@@ -5,8 +5,8 @@ import { } from 'react-native-gesture-handler'
 export default function KeyboardavoidingWrapper({ children, style }) {
     return (
         <KeyboardAvoidingView style={{ flex: 1 }}>
-            <ScrollView style={{ flex: 1 }}>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={style}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={style}>
+                <ScrollView style={{ flex: 1, backgroundColor: 'green' }}>
                     {/* <Text
                         style={{
                             fontSize: 20,
@@ -17,8 +17,8 @@ export default function KeyboardavoidingWrapper({ children, style }) {
                         text
                     </Text> */}
                     {children}
-                </TouchableWithoutFeedback>
-            </ScrollView>
+                </ScrollView>
+            </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
     )
 }

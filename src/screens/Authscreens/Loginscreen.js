@@ -52,8 +52,8 @@ const Styledtextinput = (props) => {
             marginLeft: 5,
             fontWeight: '400',
             fontSize: 15,
-            marginBottom: -10,
             color: '#caf0f8',
+            marginBottom: -10,
             flex: 1,
           }}
           value={text}
@@ -182,7 +182,6 @@ export default function Loginscreen() {
                 onSubmit={(values, formikActions) => {
                   handlesLogin(values);
                   setTimeout(() => {
-                    // console.log(values);
                     formikActions.resetForm();
                     formikActions.setSubmitting(false);
                   }, 2000);
@@ -204,11 +203,11 @@ export default function Loginscreen() {
                     <>
                       <Styledtextinput
                         // onChangeText={setEmailId}
-                        value={EmailId}
-                        placeholder='Email/Phone'
                         placeholderTextColor={colors.inputs}
-                        autoCapitalize="none"
                         title='Enter your Email/Phone'
+                        placeholder='Email/Phone'
+                        value={EmailId}
+                        autoCapitalize="none"
                         icon='email'
                         keyboardType='email-address'
                         MaterialCommunityIcons
@@ -253,7 +252,7 @@ export default function Loginscreen() {
                             style={{
                               fontSize: 20,
                               fontWeight: '700',
-                              fontFamily: 'Comfortaa',
+                              fontFamily: 'Roboto',
                               color: colors.primary
                             }}>
                             Log In
@@ -304,14 +303,14 @@ const styles = StyleSheet.create({
   hitext: {
     fontSize: 40,
     fontWeight: '700',
-    fontFamily: 'Comfortaa',
+    fontFamily: 'Roboto',
     color: colors.white,
     marginTop: 5,
   },
   logintext: {
     fontSize: 25,
     fontWeight: '600',
-    fontFamily: 'Comfortaa',
+    fontFamily: 'Roboto',
     color: colors.white,
     marginTop: -5,
     marginBottom: 15
@@ -336,13 +335,13 @@ const styles = StyleSheet.create({
   registertext: {
     fontSize: 20,
     fontWeight: '700',
-    fontFamily: 'Comfortaa',
+    fontFamily: 'Roboto',
     color: colors.white
   },
   ortext: {
     fontSize: 17,
     fontWeight: '700',
-    fontFamily: 'Comfortaa',
+    fontFamily: 'Roboto',
     color: colors.white3,
     marginHorizontal: 10,
     marginTop: -5,
@@ -350,7 +349,7 @@ const styles = StyleSheet.create({
   forgettext: {
     fontSize: 11,
     fontWeight: '700',
-    fontFamily: 'Comfortaa',
+    fontFamily: 'Roboto',
     color: colors.white,
     marginTop: 5,
   },
@@ -367,7 +366,7 @@ const styles = StyleSheet.create({
   customstyle: {
     fontSize: 15,
     fontWeight: '500',
-    fontFamily: 'Comfortaa',
+    fontFamily: 'Roboto',
     color: '#edf2f4',
     marginTop: 10,
   },

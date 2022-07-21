@@ -6,52 +6,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../../constants';
-import Homescreen from './Homescreen';
-
-function Feed() {
-    const navigation = useNavigation();
-    return (
-        <View style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#3bc13a30'
-        }}>
-            <Button
-                title="Go to Profile"
-                onPress={() => navigation.navigate('Profile')}
-            />
-            <Text>Feed!</Text>
-        </View>
-    );
-}
-
-function Profile() {
-    return (
-        <View style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#ab42ac60'
-        }}>
-            <Text>Profile!</Text>
-        </View>
-    );
-}
-
-function Notifications() {
-    return (
-        <View style={{
-            flex: 1,
-            backgroundColor: '#09acb380', justifyContent: 'center', alignItems: 'center'
-        }}>
-            <Text>Notifications!</Text>
-        </View>
-    );
-}
+import { Homescreen, Searchscreen, Profilescreen, Portfolioscreen } from '../';
 
 const Tab = createBottomTabNavigator();
-
 
 
 function MyTabs({ EmailId }) {
@@ -111,8 +68,8 @@ function MyTabs({ EmailId }) {
             {/* <Homescreen EmailId1={'1234sdcsd@gmaiecsdcl.com'} /> */}
             {/* </Tab.Screen> */}
             <Tab.Screen
-                name="Notifications"
-                component={Notifications}
+                name="Searchscreen"
+                component={Searchscreen}
                 options={{
                     tabBarLabel: 'Updates',
                     tabBarIcon: ({ color, size }) => (
@@ -121,11 +78,11 @@ function MyTabs({ EmailId }) {
                 }}
             />
             <Tab.Screen
-                name="Profile"
-                component={Profile}
+                name="Portfolioscreen"
+                component={Portfolioscreen}
                 options={{
-                    tabBarLabel: 'Profile',
-                    tabBarBadge: 1,
+                    tabBarLabel: 'Portfolioscreen',
+                    // tabBarBadge: 1,
                     // tabBarAccessibilityLabel:'hisdsd sdvsdv',
                     tabBarIcon: ({ color, size }) => (
                         <FontAwesome name="shopping-bag" color={color} size={20} />
@@ -133,10 +90,10 @@ function MyTabs({ EmailId }) {
                 }}
             />
             <Tab.Screen
-                name="Profile1"
-                component={Profile}
+                name="Profilescreen"
+                component={Profilescreen}
                 options={{
-                    tabBarLabel: 'Profile',
+                    tabBarLabel: 'Profilescreen',
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="account-circle-outline" color={color} size={20} />
                     ),
@@ -147,13 +104,13 @@ function MyTabs({ EmailId }) {
 }
 
 export default function Bottomtab({ route }) {
-    const { EmailId, otherParam } = route.params;
-    const [EmailIds, setEmailIds] = useState('1234@gmail.com')
-    useEffect(() => {
-        if (route.params?.EmailId) {
-            setEmailIds(EmailId);
-        }
-    }, []);
+    // const { EmailId, otherParam } = route.params;
+    const [EmailId, setEmailIds] = useState('1234@gmail.com')
+    // useEffect(() => {
+    //     if (route.params?.EmailId) {
+    //         setEmailIds(EmailId);
+    //     }
+    // }, []);
     return (
         <NavigationContainer independent>
             <MyTabs EmailId={EmailId} />

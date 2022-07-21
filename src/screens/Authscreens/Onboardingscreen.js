@@ -91,23 +91,39 @@ export default function Onboardingscreen({ route }) {
 
             {animation == 50
                 ?
-                <View style={{ height: 128, paddingHorizontal: 15, paddingBottom: 10, }}>
-                    <TouchableOpacity style={styles.loginbutton}
-                        onPress={() => navigation.navigate('Loginscreen')}
-                    >
-                        <Text
-                            style={styles.logintext}>
-                            Log In
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('Signupscreen')}
-                        style={styles.registerbutton}>
-                        <Text
-                            style={styles.registertext}>
-                            Register
-                        </Text>
-                    </TouchableOpacity>
+                <View
+                    style={{
+                        height: 130,
+                        paddingHorizontal: 15,
+                        marginBottom: 15,
+                    }}>
+                    <View style={{
+                        backgroundColor: colors.primary,
+                        borderRadius: 20
+                    }}>
+                        <TouchableOpacity style={styles.loginbutton}
+                            onPress={() => navigation.navigate('Loginscreen')}
+                        >
+                            <Text
+                                style={styles.logintext}>
+                                Log In
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{
+                        backgroundColor: colors.primary,
+                        borderRadius: 20,
+                        marginTop: 10,
+                    }}>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('Signupscreen')}
+                            style={styles.registerbutton}>
+                            <Text
+                                style={styles.registertext}>
+                                Register
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 :
                 <View style={{ height: 128 }} />
@@ -120,7 +136,7 @@ const styles = StyleSheet.create({
     minitext: {
         fontSize: 14,
         fontWeight: '500',
-        fontFamily: 'Comfortaa',
+        fontFamily: 'Roboto',
         textAlign: 'center',
         alignSelf: 'center',
         color: colors.white,
@@ -132,14 +148,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 14,
-        backgroundColor: colors.primary,
-        marginTop: 10,
+        borderColor: colors.primary,
+        backgroundColor: colors.white,
+        borderWidth: 2,
     },
     registertext: {
         fontSize: 20,
         fontWeight: '400',
-        fontFamily: 'Comfortaa',
-        color: colors.white
+        fontFamily: 'Roboto',
+        color: colors.primary
     },
     loginbutton: {
         borderRadius: 20,
@@ -147,12 +164,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 14,
-        borderColor: colors.primary
+        borderColor: colors.primary,
+        backgroundColor: colors.white
     },
     logintext: {
         fontSize: 20,
         fontWeight: '400',
-        fontFamily: 'Comfortaa',
+        fontFamily: 'Roboto',
         color: colors.primary
     },
 })

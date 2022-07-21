@@ -43,7 +43,7 @@ export default function Splashscreen() {
                 style={{
                     fontSize: 35,
                     fontWeight: '800',
-                    fontFamily: 'Comfortaa',
+                    fontFamily: 'Roboto',
                     color: colors.primary,
                     // marginTop: 10,
                 }}>
@@ -53,7 +53,7 @@ export default function Splashscreen() {
                 style={{
                     fontSize: 16,
                     fontWeight: '700',
-                    fontFamily: 'Comfortaa',
+                    fontFamily: 'Roboto',
                     color: '#333',
                     textAlign: 'center',
                     maxWidth: '60%',

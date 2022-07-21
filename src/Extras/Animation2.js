@@ -57,7 +57,7 @@
 //                             style={{
 //                                 fontSize: 16,
 //                                 fontWeight: '700',
-//                                 fontFamily: 'Comfortaa',
+//                                 fontFamily: 'Roboto',
 //                                 textAlign: 'center',
 //                                 maxWidth: '60%',
 //                                 marginTop: 10,
@@ -170,7 +170,7 @@ export default function Animation() {
 						style={{
 							fontSize: 16,
 							fontWeight: '700',
-							fontFamily: 'Comfortaa',
+							fontFamily: 'Roboto',
 							textAlign: 'center',
 							maxWidth: '60%',
 							marginTop: 10,

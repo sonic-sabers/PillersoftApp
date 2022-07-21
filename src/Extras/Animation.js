@@ -69,7 +69,7 @@ export default function Animation() {
 						style={{
 							fontSize: 16,
 							fontWeight: '700',
-							fontFamily: 'Comfortaa',
+							fontFamily: 'Roboto',
 							textAlign: 'center',
 							alignSelf: 'center',
 							color: colors.mytext,
@@ -95,7 +95,7 @@ export default function Animation() {
 							style={{
 								fontSize: 20,
 								fontWeight: '800',
-								fontFamily: 'Comfortaa',
+								fontFamily: 'Roboto',
 								color: colors.primary
 							}}>
 							Login In
@@ -114,7 +114,7 @@ export default function Animation() {
 							style={{
 								fontSize: 20,
 								fontWeight: '800',
-								fontFamily: 'Comfortaa',
+								fontFamily: 'Roboto',
 								color: colors.white
 							}}>
 							Register
