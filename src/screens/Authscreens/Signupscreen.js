@@ -62,7 +62,7 @@ const Styledtextinput = (props) => {
           <MaterialCommunityIcons name={props.icon} size={20} color={colors.inputs} style={{
             marginBottom: -10
           }} />
-          }
+        }
         <TextInput
           style={{
             marginLeft: 5,
@@ -214,7 +214,6 @@ export default function Signupscreen() {
               alignItems: 'center',
             }}>
             <Octicons name='arrow-left'
-
               size={27} color={colors.primary} />
           </TouchableOpacity>
           <Text
@@ -228,7 +227,6 @@ export default function Signupscreen() {
           >
             Welcome
           </Text>
-
           <Text
             style={{
               fontSize: 25,

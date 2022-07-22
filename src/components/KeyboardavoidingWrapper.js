@@ -6,7 +6,7 @@ export default function KeyboardavoidingWrapper({ children, style }) {
     return (
         <KeyboardAvoidingView style={{ flex: 1 }}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={style}>
-                <ScrollView style={{ flex: 1, backgroundColor: 'green' }}>
+                <ScrollView style={{ flex: 1, backgroundColor: '#0e85f2' }}>
                     {/* <Text
                         style={{
                             fontSize: 20,

@@ -80,7 +80,6 @@ export const Header = (props) => {
                         name='ellipsis-vertical'
                         size={20}
                         style={{
-
                         }}
                         color={colors.lightblack}
                         onPress={() =>
@@ -89,6 +88,22 @@ export const Header = (props) => {
                     />
                 </Hstack>
             </Hstack>
+        </View>
+    )
+}
+export const Headertext = ({ title }) => {
+    return (
+        <View>
+            <Text
+                style={{
+                    fontSize: 14,
+                    fontWeight: '400',
+                    fontFamily: 'Roboto',
+                    color: colors.lightblack,
+
+                }}>
+                {title ? title : 'New Listing'}
+            </Text>
         </View>
     )
 }
@@ -101,16 +116,7 @@ export const Watchlist = () => {
                 paddingHorizontal: 10,
             }}
         >
-            <Text
-                style={{
-                    fontSize: 14,
-                    fontWeight: '400',
-                    fontFamily: 'Roboto',
-                    color: colors.lightblack,
-
-                }}>
-                Watchlist
-            </Text>
+            <Headertext />
             <View style={{
 
                 backgroundColor: colors.white,

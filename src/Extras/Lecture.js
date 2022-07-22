@@ -89,7 +89,7 @@ const Responsive = () => {
 
 const Lectures = () => {
 	return (
-		<View style={{ padding: 10, backgroundColor: 'green', height: '100%', width: '100%' }}>
+		<View style={{ padding: 10, backgroundColor: '#0e85f2', height: '100%', width: '100%' }}>
 			<Curriculam Noheader />
 		</View>
 	);

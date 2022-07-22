@@ -14,7 +14,6 @@ const screenOptionStyle = {
 export default function App() {
   return (
     <PaperProvider>
-      
       <NavigationContainer>
         <Stack.Navigator screenOptions={screenOptionStyle}>
           <Stack.Screen name="Onboardingscreen" component={Onboardingscreen} />

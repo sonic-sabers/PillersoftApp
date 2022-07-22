@@ -69,6 +69,7 @@ export default function Onboardingscreen({ route }) {
                             width: 130,
                             height: 130,
                             alignSelf: 'center',
+                            resizeMode: 'contain',
                         }} />
                     <Text
                         style={{
@@ -95,35 +96,25 @@ export default function Onboardingscreen({ route }) {
                     style={{
                         height: 130,
                         paddingHorizontal: 15,
-                        marginBottom: 15,
+                        paddingBottom: 10,
+                        marginBottom: 10,
                     }}>
-                    <View style={{
-                        backgroundColor: colors.primary,
-                        borderRadius: 20
-                    }}>
-                        <TouchableOpacity style={styles.loginbutton}
-                            onPress={() => navigation.navigate('Loginscreen')}
-                        >
-                            <Text
-                                style={styles.logintext}>
-                                Log In
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{
-                        backgroundColor: colors.primary,
-                        borderRadius: 20,
-                        marginTop: 10,
-                    }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('Signupscreen')}
-                            style={styles.registerbutton}>
-                            <Text
-                                style={styles.registertext}>
-                                Register
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity style={styles.loginbutton}
+                        onPress={() => navigation.navigate('Loginscreen')}
+                    >
+                        <Text
+                            style={styles.logintext}>
+                            Log In
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Signupscreen')}
+                        style={styles.registerbutton}>
+                        <Text
+                            style={styles.registertext}>
+                            Register
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 :
                 <View style={{ height: 128 }} />
@@ -136,7 +127,7 @@ const styles = StyleSheet.create({
     minitext: {
         fontSize: 14,
         fontWeight: '500',
-        fontFamily: 'Roboto',
+        fontFamily: 'Comfortaa',
         textAlign: 'center',
         alignSelf: 'center',
         color: colors.white,
@@ -144,33 +135,32 @@ const styles = StyleSheet.create({
         maxWidth: '60%',
     },
     registerbutton: {
+        padding: 14,
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 14,
-        borderColor: colors.primary,
-        backgroundColor: colors.white,
         borderWidth: 2,
+        borderColor: colors.primary,
+        marginTop: 10,
     },
     registertext: {
         fontSize: 20,
         fontWeight: '400',
-        fontFamily: 'Roboto',
+        fontFamily: 'Comfortaa',
         color: colors.primary
     },
     loginbutton: {
         borderRadius: 20,
-        borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 14,
-        borderColor: colors.primary,
-        backgroundColor: colors.white
+        borderWidth: 2,
+        borderColor: colors.primary
     },
     logintext: {
         fontSize: 20,
         fontWeight: '400',
-        fontFamily: 'Roboto',
+        fontFamily: 'Comfortaa',
         color: colors.primary
     },
 })
