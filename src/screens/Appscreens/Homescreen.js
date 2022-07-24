@@ -151,7 +151,7 @@ export const Header = (props) => {
                                 setModalVisible(true)
                             }
                         >
-                           <MaterialIcons
+                            <MaterialIcons
                                 name='notifications-none'
                                 size={25}
                                 style={{
@@ -170,13 +170,24 @@ export const Header = (props) => {
 }
 export const Headertext = ({ title }) => {
     return (
-        <View>
+        <View style={{
+            // height: 30,
+            backgroundColor: colors.primary,
+            paddingHorizontal: 18,
+            marginLeft: 5,
+            paddingBottom: 20,
+            marginBottom: -22,
+            borderTopRightRadius: 20,
+            borderTopLeftRadius: 20,
+            paddingTop: 3,
+
+        }}>
             <Text
                 style={{
-                    fontSize: 14,
-                    fontWeight: '400',
+                    fontSize: 13,
+                    fontWeight: '700',
                     fontFamily: 'Roboto',
-                    color: colors.lightblack,
+                    color: colors.white,
 
                 }}>
                 {title ? title : 'New Listing'}
@@ -185,17 +196,17 @@ export const Headertext = ({ title }) => {
     )
 }
 
-export const Watchlist = () => {
+const Commoncomponent = ({ title, type }) => {
     return (
         <View
             style={{
-                marginTop: -30,
-                paddingHorizontal: 10,
-            }}
-        >
-            <Headertext />
-            <View style={{
+                marginTop: 10,
+            }}>
 
+            <Hstack centered between>
+                <Headertext title={title} />
+            </Hstack>
+            <View style={{
                 backgroundColor: colors.white,
                 shadowColor: "#000",
                 shadowOffset: {
@@ -206,11 +217,10 @@ export const Watchlist = () => {
                 shadowRadius: 10.32,
                 elevation: 16,
                 padding: 10,
-                borderRadius: 10,
+                borderRadius: 15,
                 margin: 5,
-
             }}>
-                {Array.from(Array(10).keys()).map((i) => (
+                {Array.from(Array(4).keys()).map((i) => (
                     <View
                         key={i}
                         style={{ padding: 15, justifyContent: 'center' }}>
@@ -221,11 +231,26 @@ export const Watchlist = () => {
                                 fontFamily: 'Roboto',
                                 color: '#000'
                             }}>
-                            Item {i + 1}
+                            {type} {i + 1}
                         </Text>
                     </View>
                 ))}
             </View>
+        </View>
+    )
+}
+
+export const Watchlist = () => {
+    return (
+        <View
+            style={{
+                marginTop: -40,
+                paddingHorizontal: 10,
+            }}
+        >
+
+            <Commoncomponent type='Bond' />
+            <Commoncomponent type='Reward' title='Rewards' />
         </View>
     )
 }

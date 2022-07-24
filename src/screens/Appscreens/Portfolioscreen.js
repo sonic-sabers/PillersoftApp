@@ -38,16 +38,70 @@ import { List } from 'react-native-paper';
 
 const Addmoney = () => {
     return (
-        <TouchableOpacity
+        <View
             style={{
-                margin: 15,
-                backgroundColor: colors.primary,
-                borderRadius: 20,
-                padding: 20,
-                paddingVertical: 25,
-            }}>
-            <Hstack centered between>
+                marginHorizontal: 15,
+                marginTop: 20,
+
+
+            }}
+        >
+            <Hstack
+                styles={{
+
+                    backgroundColor: colors.primary,
+                    borderRadius: 20,
+                    padding: 20,
+                    paddingVertical: 25,
+                    zIndex: 200,
+                }}
+                centered between>
                 <Hstack>
+                    <AntDesign
+                        name='wallet'
+                        size={20}
+                        style={{
+                        }}
+                        color={colors.white}
+                        onPress={() =>
+                            alert('_Alert_')
+                        }
+                    />
+                    <Text
+                        style={{
+                            fontSize: 16,
+                            fontWeight: '700',
+                            fontFamily: 'Roboto',
+                            color: colors.white,
+                            marginLeft: 10,
+                        }}>
+                        1000.00 INR
+                    </Text>
+                </Hstack>
+
+                <Ionicons
+                    name='ellipsis-horizontal'
+                    size={20}
+                    style={{
+                    }}
+                    color={colors.white}
+                    onPress={() =>
+                        alert('See Details')
+                    }
+                />
+            </Hstack>
+            <TouchableOpacity
+                style={{
+                    backgroundColor: '#d9d9d9',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: 7,
+                    paddingTop: 28,
+                    marginTop: -20,
+                    borderBottomLeftRadius: 20,
+                    borderBottomRightRadius: 20,
+                }}>
+                <Hstack centered>
                     <Ionicons
                         name='add-circle-outline'
                         size={20}
@@ -64,24 +118,13 @@ const Addmoney = () => {
                             fontWeight: '600',
                             fontFamily: 'Roboto',
                             color: colors.white,
-                            marginLeft: 10,
+                            marginLeft: 5,
                         }}>
                         Add Money
                     </Text>
                 </Hstack>
-
-                <Ionicons
-                    name='ellipsis-horizontal'
-                    size={20}
-                    style={{
-                    }}
-                    color={colors.white}
-                    onPress={() =>
-                        alert('_Alert_')
-                    }
-                />
-            </Hstack>
-        </TouchableOpacity>
+            </TouchableOpacity>
+        </View>
     )
 }
 
@@ -177,10 +220,10 @@ const Options = () => {
     const [expanded, setExpanded] = React.useState(true);
     const handlePress = () => setExpanded(!expanded);
     return (
-        <ScrollView
+        <View
             style={{
                 flex: 1,
-                backgroundColor: colors.white4,
+                // backgroundColor: colors.white4,
                 padding: 20,
                 borderTopLeftRadius: 20,
                 borderTopRightRadius: 20,
@@ -194,7 +237,7 @@ const Options = () => {
             <View style={{
                 paddingBottom: 90,
             }} />
-        </ScrollView>
+        </View>
     )
 }
 
@@ -205,18 +248,16 @@ export default function Portfolioscreen() {
                 flex: 1,
                 backgroundColor: colors.white
             }}>
+            <Header title="Portfolio" text='Your' />
             <ScrollView
-                contentContainerStyle={{
-                    flex: 1,
-                    // backgroundColor: colors.primary
-                }}
+                // contentContainerStyle={{
+                //     flex: 1,
+                //     // backgroundColor: colors.primary
+                // }}
                 showsVerticalScrollIndicator={false}
                 style={{
                     flex: 1,
-
-                    // paddingHorizontal: 10,
                 }}>
-                <Header title="Portfolio" text='Your' />
                 <Addmoney />
                 <Options />
             </ScrollView>

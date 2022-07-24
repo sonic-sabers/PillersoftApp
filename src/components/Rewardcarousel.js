@@ -74,7 +74,7 @@ const Offercomponent = ({ source }) => {
     return (
         <TouchableOpacity
             //  key={source.item.id}
-            onPress={() => navigation.navigate('Coursename')}
+            onPress={() => alert('You Are Looking for Great Deals')}
             // onPress={() => navigation.navigate('Offersscreen')}
             // onPress={() => console.log(source)}
             style={{
@@ -103,7 +103,7 @@ const Offercomponent = ({ source }) => {
             <Image
                 source={source.image}
                 style={{
-                    width: SLIDER_WIDTH-15,
+                    width: SLIDER_WIDTH - 15,
                     height: 120,
                     paddingBottom: -40,
                     borderRadius: 20,
@@ -178,7 +178,7 @@ const Rewardcarousel = () => {
             shadowRadius: 10.32,
             elevation: 16,
         }} >
-            <Text
+            {/* <Text
                 style={{
                     fontSize: 14,
                     fontWeight: '400',
@@ -188,7 +188,7 @@ const Rewardcarousel = () => {
                     marginBottom: 5,
                 }}>
                 Rewards
-            </Text>
+            </Text> */}
             <Carousel
                 ref={isCarousel}
                 data={images}

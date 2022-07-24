@@ -4,7 +4,7 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../constants';
 import { Homescreen, Searchscreen, Profilescreen, Portfolioscreen } from '../';
 
@@ -25,11 +25,13 @@ function MyTabs({ EmailId }) {
 
                 tabBarStyle: {
                     // backgroundColor: 'green',
-                    marginHorizontal: 10,
-                    marginBottom: 10,
-                    borderRadius: 10,
-                    // BlurView:'absolute',
+                    // marginHorizontal: 10,
+                    // marginBottom: 10,
+                    // borderRadius: 10,
+                    BlurView: 'absolute',
                     position: 'absolute',
+                    borderTopRightRadius: 20,
+                    borderTopLeftRadius: 20,
                     shadowColor: "#000",
                     shadowOffset: {
                         width: 0,
@@ -60,7 +62,7 @@ function MyTabs({ EmailId }) {
                     title: route.params.userId,
                     tabBarLabel: 'Homescreen',
                     tabBarIcon: ({ color, size }) => (
-                        <MaterialCommunityIcons name="home" color={color} size={20} />
+                        <MaterialCommunityIcons name="home" color={color} size={23} />
                     ),
 
                 })}
@@ -73,7 +75,7 @@ function MyTabs({ EmailId }) {
                 options={{
                     tabBarLabel: 'Updates',
                     tabBarIcon: ({ color, size }) => (
-                        <FontAwesome5 name="file-contract" color={color} size={20} />
+                        <FontAwesome5 name="file-contract" color={color} size={22} />
                     ),
                 }}
             />
@@ -85,7 +87,7 @@ function MyTabs({ EmailId }) {
                     // tabBarBadge: 1,
                     // tabBarAccessibilityLabel:'hisdsd sdvsdv',
                     tabBarIcon: ({ color, size }) => (
-                        <FontAwesome name="shopping-bag" color={color} size={20} />
+                        <MaterialIcons name="wallet-travel" color={color} size={23} />
                     ),
                 }}
             />
@@ -95,7 +97,7 @@ function MyTabs({ EmailId }) {
                 options={{
                     tabBarLabel: 'Profilescreen',
                     tabBarIcon: ({ color, size }) => (
-                        <MaterialCommunityIcons name="account-circle-outline" color={color} size={20} />
+                        <MaterialCommunityIcons name="account-circle-outline" color={color} size={23} />
                     ),
                 }}
             />

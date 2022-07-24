@@ -79,7 +79,7 @@ export const Header = (props) => {
                         }}
                         color={colors.lightblack}
                         onPress={() =>
-                            alert('_Alert_')
+                            alert('Help...')
                         }
                     />
 
@@ -93,12 +93,12 @@ const Settingsoption = ({ title, icon, type }) => {
     return (
         <TouchableOpacity
             style={{
-                marginTop: 15,
+                marginVertical: 10,
                 marginLeft: 14,
             }}>
             <Hstack centered>
                 {type == 'material' && <MaterialCommunityIcons name={icon ? icon : 'account-circle-outline'} size={20} color={colors.primary} />}
-                {type == 'Octicons' && <Octicons name={icon ? icon : 'account-circle-outline'} size={20} color={colors.primary} />}
+                {type == 'Octicons' && <Octicons name={icon ? icon : 'account-circle-outline'} size={18} color={colors.primary} />}
                 {type == 'Ionicons' && <Ionicons name={icon ? icon : 'account-circle-outline'} size={18} color={colors.primary} />}
                 {type == 'FontAwesome' && <FontAwesome name={icon ? icon : 'account-circle-outline'} size={20} color={colors.primary} />}
                 {type == 'FontAwesome5' && <FontAwesome5 name={icon ? icon : 'account-circle-outline'} size={18} color={colors.primary} />}
@@ -124,27 +124,38 @@ const Settingsoption = ({ title, icon, type }) => {
 
 export default function Profilescreen() {
     return (
-        <ScrollView
+        <View
             style={{
                 backgroundColor: colors.white
             }}>
             <Header />
-            {/* <Settingsoption title='Account Preferance' />
+
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
+                {/* <Settingsoption title='Account Preferance' />
             <Settingsoption title='Login  And Security' />
             <Settingsoption title='Payment  Methods' />
             <Settingsoption title='Help And Support' />
             <Settingsoption title='My Rewards ' />
             <Settingsoption title='Settings ' /> */}
-            <Settingsoption title='Account Settings' type='material' icon='account-circle-outline' />
-            <Settingsoption title='All Orders' type='Ionicons' icon='newspaper-outline' />
-            <Settingsoption title='Rewards ' type='FontAwesome5' icon='medal' />
-            <Settingsoption title='Security ' type='Foundation' icon='shield' />
-            <Settingsoption title='Invite And Earn ' type='Ionicons' icon='ios-cash-outline' />
-            <Settingsoption title='Help And Support ' type='Feather' icon='help-circle' />
-            <Settingsoption title='Contact Us On Social ' type='Ionicons' icon='globe-outline' />
-            <Settingsoption title='About Us ' type='MaterialIcons' icon='help-center' />
-            <Settingsoption title='App Feedback ' type='FontAwesome' icon='braille' />
-        </ScrollView>
+                <Settingsoption title='Account Settings' type='material' icon='account-circle-outline' />
+                <Settingsoption title='Wish List' type='material' icon='star-plus' />
+                <Settingsoption title='Tasks' type='Octicons' icon='checklist' />
+                <Settingsoption title='All Orders' type='Ionicons' icon='newspaper-outline' />
+                <Settingsoption title='Rewards ' type='FontAwesome5' icon='medal' />
+                <Settingsoption title='Security ' type='Foundation' icon='shield' />
+                <Settingsoption title='Invite And Earn ' type='Ionicons' icon='ios-cash-outline' />
+                <Settingsoption title='Help And Support ' type='Feather' icon='help-circle' />
+                <Settingsoption title='Contact Us On Social ' type='Ionicons' icon='globe-outline' />
+                <Settingsoption title='About Us ' type='MaterialIcons' icon='help-center' />
+                <Settingsoption title='App Feedback ' type='FontAwesome' icon='braille' />
+                <Settingsoption title='Log Out' type='Ionicons' icon='exit-outline' />
+                <View style={{
+                    paddingBottom: 70,
+                }} />
+            </ScrollView>
+        </View>
     )
 }
 
