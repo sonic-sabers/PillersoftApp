@@ -21,8 +21,6 @@ let dimensions = Dimensions.get('window');
 let imageHeight = Math.round((dimensions.width * 431) / 360);
 let imageWidth = dimensions.width;
 
-
-
 export default function Onboardingscreen({ route }) {
     const navigation = useNavigation();
     const [animation, setanimation] = useState(new Animated.Value(0))
@@ -37,6 +35,10 @@ export default function Onboardingscreen({ route }) {
                     setanimation(50);
                 });
             }, 1000);
+        }
+        if (route.params?.status=='back') {
+            setanimation(50);
+            // console.log('HIsvd')
         }
     }, []);
     const transformStyle = {

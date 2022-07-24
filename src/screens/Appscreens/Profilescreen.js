@@ -31,6 +31,8 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Foundation from 'react-native-vector-icons/Foundation';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const Header = (props) => {
@@ -87,20 +89,35 @@ export const Header = (props) => {
     )
 }
 
-const Settingsoption = ({ title }) => {
+const Settingsoption = ({ title, icon, type }) => {
     return (
-        <TouchableOpacity>
-            <Text
-                style={{
-                    fontSize: 18,
-                    fontWeight: '500',
-                    fontFamily: 'Roboto',
-                    color: colors.lightblack,
-                    margin: 15,
-                    marginTop: 10,
-                }}>
-                {title}
-            </Text>
+        <TouchableOpacity
+            style={{
+                marginTop: 15,
+                marginLeft: 14,
+            }}>
+            <Hstack centered>
+                {type == 'material' && <MaterialCommunityIcons name={icon ? icon : 'account-circle-outline'} size={20} color={colors.primary} />}
+                {type == 'Octicons' && <Octicons name={icon ? icon : 'account-circle-outline'} size={20} color={colors.primary} />}
+                {type == 'Ionicons' && <Ionicons name={icon ? icon : 'account-circle-outline'} size={18} color={colors.primary} />}
+                {type == 'FontAwesome' && <FontAwesome name={icon ? icon : 'account-circle-outline'} size={20} color={colors.primary} />}
+                {type == 'FontAwesome5' && <FontAwesome5 name={icon ? icon : 'account-circle-outline'} size={18} color={colors.primary} />}
+                {type == 'Feather' && <Feather name={icon ? icon : 'account-circle-outline'} size={20} color={colors.primary} />}
+                {type == 'Foundation' && <Foundation name={icon ? icon : 'account-circle-outline'} size={20} color={colors.primary} />}
+                {type == 'MaterialIcons' && <MaterialIcons name={icon ? icon : 'account-circle-outline'} size={20} color={colors.primary} />}
+
+                <Text
+                    style={{
+                        fontSize: 18,
+                        fontWeight: '600',
+                        fontFamily: 'Roboto',
+                        color: colors.lightblack,
+                        marginLeft: 8,
+
+                    }}>
+                    {title}
+                </Text>
+            </Hstack>
         </TouchableOpacity>
     )
 }
@@ -112,13 +129,21 @@ export default function Profilescreen() {
                 backgroundColor: colors.white
             }}>
             <Header />
-            <Settingsoption title='Account Preferance' />
+            {/* <Settingsoption title='Account Preferance' />
             <Settingsoption title='Login  And Security' />
             <Settingsoption title='Payment  Methods' />
             <Settingsoption title='Help And Support' />
-            <Settingsoption title='My  Rewards ' />
-            <Settingsoption title='Settings ' />
-            <Settingsoption title='Appearance ' />
+            <Settingsoption title='My Rewards ' />
+            <Settingsoption title='Settings ' /> */}
+            <Settingsoption title='Account Settings' type='material' icon='account-circle-outline' />
+            <Settingsoption title='All Orders' type='Ionicons' icon='newspaper-outline' />
+            <Settingsoption title='Rewards ' type='FontAwesome5' icon='medal' />
+            <Settingsoption title='Security ' type='Foundation' icon='shield' />
+            <Settingsoption title='Invite And Earn ' type='Ionicons' icon='ios-cash-outline' />
+            <Settingsoption title='Help And Support ' type='Feather' icon='help-circle' />
+            <Settingsoption title='Contact Us On Social ' type='Ionicons' icon='globe-outline' />
+            <Settingsoption title='About Us ' type='MaterialIcons' icon='help-center' />
+            <Settingsoption title='App Feedback ' type='FontAwesome' icon='braille' />
         </ScrollView>
     )
 }

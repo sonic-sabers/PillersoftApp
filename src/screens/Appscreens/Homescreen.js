@@ -21,6 +21,9 @@ import {
     ViewPropTypes,
     Switch,
     Dimensions,
+    Modal,
+    Pressable,
+
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Hstack, KeyboardavoidingWrapper, Rewardcarousel } from '../../components';
@@ -33,62 +36,136 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export const Header = (props) => {
+const Notificationitem = () => {
     return (
         <View style={{
-            margin: 5,
-            borderBottomWidth: 2,
-            borderColor: colors.lightblack,
-            paddingBottom: 10,
-            marginTop: 10,
-            borderRadius: 5,
-            paddingHorizontal: 10,
-        }}>
-            <Text
-                style={{
-                    fontSize: 14,
-                    fontWeight: '600',
-                    fontFamily: 'Roboto',
-                    color: colors.lightblack
-                }}>
-                Hi,Welcome
-            </Text>
-            <Hstack centered between>
+            borderRadius: 40,
+            backgroundColor: colors.lightblack,
+            height: 5,
+            width: 5,
+            padding: 4,
+            marginVertical: 20,
+        }} />
+    )
+}
+
+export const Header = (props) => {
+    const [modalVisible, setModalVisible] = useState(false);
+
+    return (
+        <>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={{ backgroundColor: '#fff', flex: 1 }}>
+                    <View style={{
+                        flex: 1,
+                        padding: 10,
+                        paddingLeft: 15
+                    }}>
+                        <TouchableOpacity
+                            onPress={() => setModalVisible(!modalVisible)}
+                            style={{
+                                backgroundColor: colors.primary,
+                                height: 36,
+                                width: 36,
+                                borderRadius: 60,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}>
+                            <Octicons name='arrow-left'
+                                size={27} color={colors.white} />
+                        </TouchableOpacity>
+                        <Text
+                            style={{
+                                fontSize: 27,
+                                fontWeight: '700',
+                                fontFamily: 'Roboto',
+                                color: colors.prlightblackimary,
+                                marginTop: 5,
+                            }}>
+                            Notifications
+
+
+                        </Text>
+                        <View style={{
+                            marginVertical: 5,
+                            borderBottomWidth: 2,
+                            borderColor: colors.lightblack,
+                            paddingBottom: 5,
+                            // marginTop: 10,
+                            borderRadius: 5,
+                            // paddingHorizontal: 10,
+                        }} />
+                        <View>
+                            <Notificationitem />
+                            <Notificationitem />
+                            <Notificationitem />
+                            <Notificationitem />
+                            <Notificationitem />
+                            <Notificationitem />
+                            <Notificationitem />
+                            <Notificationitem />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+            <View style={{
+                margin: 5,
+                borderBottomWidth: 2,
+                borderColor: colors.lightblack,
+                paddingBottom: 10,
+                marginTop: 10,
+                borderRadius: 5,
+                paddingHorizontal: 10,
+            }}>
                 <Text
                     style={{
-                        fontSize: 27,
-                        fontWeight: '700',
+                        fontSize: 15,
+                        fontWeight: '600',
                         fontFamily: 'Roboto',
-                        color: colors.primary,
-                        marginTop: -5,
+                        color: colors.lightblack
                     }}>
-                    Lorem Ipsum
+                    {props.text ? props.text : 'Hi,Welcome'}
                 </Text>
-                <Hstack>
-                    <MaterialIcons
-                        name='notifications-none'
-                        size={25}
+                <Hstack centered between>
+                    <Text
                         style={{
-                            marginRight: 5,
-                        }}
-                        color={colors.lightblack}
-                        onPress={() =>
-                            alert('_Alert_')
-                        }
-                    />
-                    <Ionicons
-                        name='ellipsis-vertical'
-                        size={20}
-                        style={{
-                        }}
-                        color={colors.lightblack}
-                        onPress={() =>
-                            alert('_Alert_')
-                        }
-                    />
+                            fontSize: 27,
+                            fontWeight: '700',
+                            fontFamily: 'Roboto',
+                            color: colors.primary,
+                            marginTop: -5,
+                        }}>
+                        {props.title ? props.title : 'Lorem Ipsum'}
+                    </Text>
+                    <Hstack>
+                        <TouchableOpacity
+                            onPress={() =>
+                                setModalVisible(true)
+                            }
+                        >
+                           <MaterialIcons
+                                name='notifications-none'
+                                size={25}
+                                style={{
+                                    marginRight: 5,
+                                }}
+                                color={colors.lightblack}
+
+                            />
+                        </TouchableOpacity>
+
+                    </Hstack>
                 </Hstack>
-            </Hstack>
-        </View>
+            </View>
+        </>
     )
 }
 export const Headertext = ({ title }) => {

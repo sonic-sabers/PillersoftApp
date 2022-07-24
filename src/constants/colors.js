@@ -13,6 +13,7 @@ export default colors = {
     background: '#003049',
     inputs: '#f1faee',
     white3: '#ffffff80',
+    white4: '#0000001A',
     lightblack: '#00000050',
 
 }

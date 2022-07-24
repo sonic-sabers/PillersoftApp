@@ -1,4 +1,4 @@
-package com.scaler.newarchitecture;
+package com.scalerich.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.scaler.BuildConfig;
-import com.scaler.newarchitecture.components.MainComponentsRegistry;
-import com.scaler.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.scalerich.BuildConfig;
+import com.scalerich.newarchitecture.components.MainComponentsRegistry;
+import com.scalerich.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -179,16 +179,6 @@ export default function Signupscreen() {
 
   return (
     <KeyboardavoidingWrapper style={{ flex: 1 }}>
-      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss} > */}
-      {/* <View
-        style={{
-          backgroundColor: colors.primary,
-          padding: 15,
-          flex: 1,
-          paddingRight: 20,
-        }}> */}
-
-
       <View style={{
         flex: 1,
         justifyContent: 'space-between',
@@ -240,7 +230,7 @@ export default function Signupscreen() {
             Register Here
           </Text>
         </View>
-        <View style={{ marginTop: 30, }}>
+        <View style={{ marginTop: 100, }}>
           <Formik
             initialValues={UserInfo}
             onSubmit={(values, formikActions) => {
