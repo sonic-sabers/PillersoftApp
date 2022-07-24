@@ -126,12 +126,20 @@ export default function Profilescreen() {
     return (
         <View
             style={{
-                backgroundColor: colors.white
+                backgroundColor: colors.white,
+                flex: 1,
+
             }}>
             <Header />
 
             <ScrollView
                 showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+
+                    backgroundColor: colors.white,
+                    flex: 1,
+
+                }}
             >
                 {/* <Settingsoption title='Account Preferance' />
             <Settingsoption title='Login  And Security' />

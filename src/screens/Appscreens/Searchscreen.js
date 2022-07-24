@@ -3,42 +3,28 @@ import React,
 	Component,
 	useState,
 	useEffect,
-	useRef,
-	cloneElement
 } from 'react';
 import {
 	StyleSheet,
-	Button,
-	Image,
-	Text,
 	TouchableOpacity,
+	Text,
 	View,
 	TextInput,
-	ScrollView,
-	KeyboardAvoidingView,
-	SafeAreaView,
-	ImageBackground,
+	Keyboard,
 	FlatList,
-	ViewPropTypes,
-	Switch,
-	Dimensions,
+	KeyboardAvoidingView,
 	ActivityIndicator,
 	Keyboard,
 	TouchableWithoutFeedback,
 
 
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { Hstack, KeyboardavoidingWrapper, Rewardcarousel } from '../../components';
 import { colors } from '../../constants';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Entypo from 'react-native-vector-icons/Entypo';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Searchcomponent = ({ item }) => {
 	return (
@@ -118,7 +104,11 @@ const Searchbutton = (props) => {
 						<Entypo name='cross' size={22} color={colors.lightblack} />
 					</TouchableOpacity>
 					:
-					<AntDesign name='search1' size={22} color={colors.lightblack} />
+					<TouchableOpacity
+						onPress={Keyboard.dismiss}
+					>
+						<AntDesign name='search1' size={22} color={colors.lightblack} />
+					</TouchableOpacity>
 				}
 			</View>
 			<View
@@ -238,18 +228,6 @@ export default function Searchscreen() {
 		);
 	};
 
-	const ItemSeparatorView = () => {
-		return (
-			// Flat List Item Separator
-			<View
-				style={{
-					height: 0.5,
-					width: '100%',
-					backgroundColor: '#C8C8C8',
-				}}
-			/>
-		);
-	};
 
 	return (
 		<KeyboardAvoidingView style={{ flex: 1 }}>
@@ -261,8 +239,6 @@ export default function Searchscreen() {
 							paddingTop: 10,
 							backgroundColor: colors.white
 						}}>
-
-
 						<Searchbutton
 							onChangeText={(text) => searchFilterFunction(text)}
 							value={search}
@@ -277,7 +253,6 @@ export default function Searchscreen() {
 							setSearch={setSearch}
 						// onEndEditing={searchFilterFunction('')}
 						/>
-
 						{/* <TextInput
 				style={styles.textInputStyle}
 				onChangeText={(text) => searchFilterFunction(text)}
@@ -290,7 +265,6 @@ export default function Searchscreen() {
 								// initialNumToRender={4}
 								data={filteredDataSource}
 								keyExtractor={(item, index) => index.toString()}
-								ItemSeparatorComponent={ItemSeparatorView}
 								renderItem={Searchcomponent}
 								keyboardDismissMode='onDrag'
 								decelerationRate='normal'
